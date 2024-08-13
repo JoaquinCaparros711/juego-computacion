@@ -1,1 +1,1 @@
-print("PRUEBA DE GIT")
+print("PRUEBA DE GIt")
