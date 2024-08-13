@@ -13,3 +13,4 @@ class Character:
     
     def __str__(self):
         return f"{self.__name} - Salud: {self.__health}, Fuerza: {self.__strength}, Defensa: {self.__defense}, Nivel: {self.__level}"
+
