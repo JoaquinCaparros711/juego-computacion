@@ -33,12 +33,21 @@ class Character:
     
     def get_strength(self):
         return self.__strength
+    
+    def set_strength(self, strength):
+        self.__strength = strength
 
     def get_defense(self):
         return self.__defense
+    
+    def set_defense(self, defense):
+        self.__defense = defense
 
     def get_level(self):
         return self.__level
+
+    def set_level(self, level):
+        self.__level = level
     
     def __str__(self):
         return f"{self.__name}\nSalud: {self.__health}\nFuerza: {self.__strength}\nDefensa: {self.__defense}\nNivel: {self.__level}\n"
