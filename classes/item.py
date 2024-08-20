@@ -1,4 +1,4 @@
-
+from classes.character import *
 
 
 class Item:
@@ -16,7 +16,7 @@ class Item:
         return self.__effect
     
 def addItem():
-    Hamburguesa = Item("Hamburguesa", "Restaura 20 puntos de vida")
+    Hamburguesa = Item("Hamburguesa", 20)
     PapasFritas = Item("Papas Fritas", "Restaura 10 puntos de vida")
     Chocolate = Item("Chocolate", "Restaura 5 puntos de vida")
     Cocacola = Item("Coca-Cola", "Aumenta la Fuerza en 5 puntos")
@@ -26,7 +26,7 @@ def addItem():
     Chalecodekevlar = Item("Chaleco de kevlar", "Aumenta la defensa en 20 puntos")
     CamperaGucci = Item("Campera Gucci", "Aumenta la defensa en 10 puntos")
 
-
+   
 
 
     

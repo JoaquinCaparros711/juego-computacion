@@ -38,7 +38,7 @@ class Enemy:
         return self.__defense
 
     def set_health(self, health):
-        self.__health = health
+        self.__health += health
     
     def __str__(self):
         return f"{self.__name}\nSalud: {self.__health}\nFuerza: {self.__strength}\nDefensa: {self.__defense}\n"
