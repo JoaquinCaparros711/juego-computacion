@@ -16,15 +16,15 @@ class Item:
         return self.__effect
     
 def addItem():
-    Hamburguesa = Item("Hamburguesa", "Restaura 20 puntos de vida")
-    PapasFritas = Item("Papas Fritas", "Restaura 10 puntos de vida")
+    Burger = Item("Hamburguesa", "Restaura 20 puntos de vida")
+    Frenchfries = Item("Papas Fritas", "Restaura 10 puntos de vida")
     Chocolate = Item("Chocolate", "Restaura 5 puntos de vida")
     Cocacola = Item("Coca-Cola", "Aumenta la Fuerza en 5 puntos")
-    ZapatillasNike = Item("Zapatillas Nike", "Aumenta la Fuerza en 5 puntos")
+    Nikesneakers = Item("Zapatillas Nike", "Aumenta la Fuerza en 5 puntos")
     CadenadeOro = Item("Cadena de Oro", "Aumenta la Fuerza en 10 puntos")
-    DisfrazdeBatman = Item("Disfraz de Batman", "Aumenta la defensa en 15 puntos")
-    Chalecodekevlar = Item("Chaleco de kevlar", "Aumenta la defensa en 20 puntos")
-    CamperaGucci = Item("Campera Gucci", "Aumenta la defensa en 10 puntos")
+    Batmancostume = Item("Disfraz de Batman", "Aumenta la defensa en 15 puntos")
+    Kevlarvest = Item("Chaleco de kevlar", "Aumenta la defensa en 20 puntos")
+    Guccijacket = Item("Campera Gucci", "Aumenta la defensa en 5 puntos")
 
 
 
