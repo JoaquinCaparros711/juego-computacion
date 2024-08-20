@@ -12,7 +12,7 @@ class Character:
         self.__level = level
     
     def attack(self, other):
-        damage = max(self.__strength - other.get_defense()/3, 0)
+        damage = max(self.__strength - other.get_defense()/4, 0)
         other.set_health(round(other.get_health() - damage))
         return damage
 
