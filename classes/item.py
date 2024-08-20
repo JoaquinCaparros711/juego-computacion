@@ -1,4 +1,4 @@
-
+from classes.character import *
 
 
 class Item:
@@ -21,12 +21,12 @@ def addItem():
     Chocolate = Item("Chocolate", "Restaura 5 puntos de vida")
     Cocacola = Item("Coca-Cola", "Aumenta la Fuerza en 5 puntos")
     Nikesneakers = Item("Zapatillas Nike", "Aumenta la Fuerza en 5 puntos")
-    CadenadeOro = Item("Cadena de Oro", "Aumenta la Fuerza en 10 puntos")
+    Goldchain = Item("Cadena de Oro", "Aumenta la Fuerza en 10 puntos")
     Batmancostume = Item("Disfraz de Batman", "Aumenta la defensa en 15 puntos")
     Kevlarvest = Item("Chaleco de kevlar", "Aumenta la defensa en 20 puntos")
     Guccijacket = Item("Campera Gucci", "Aumenta la defensa en 5 puntos")
 
-
+   
 
 
     
