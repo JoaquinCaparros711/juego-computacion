@@ -61,3 +61,4 @@ def welcome():
 
 
 STARTINGPOINTS = 250
+

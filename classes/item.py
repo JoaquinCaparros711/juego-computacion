@@ -15,4 +15,18 @@ class Item:
     def get_effect(self):
         return self.__effect
     
-    #! Hacer una funcion q sea para dropear items, sabiendo q la clase Item tiene( nombre de item y el efecto que otorga al personaje)
+def addItem():
+    Hamburguesa = Item("Hamburguesa", "Restaura 20 puntos de vida")
+    PapasFritas = Item("Papas Fritas", "Restaura 10 puntos de vida")
+    Chocolate = Item("Chocolate", "Restaura 5 puntos de vida")
+    Cocacola = Item("Coca-Cola", "Aumenta la Fuerza en 5 puntos")
+    ZapatillasNike = Item("Zapatillas Nike", "Aumenta la Fuerza en 5 puntos")
+    CadenadeOro = Item("Cadena de Oro", "Aumenta la Fuerza en 10 puntos")
+    DisfrazdeBatman = Item("Disfraz de Batman", "Aumenta la defensa en 15 puntos")
+    Chalecodekevlar = Item("Chaleco de kevlar", "Aumenta la defensa en 20 puntos")
+    CamperaGucci = Item("Campera Gucci", "Aumenta la defensa en 10 puntos")
+
+
+
+
+    
