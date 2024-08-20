@@ -14,6 +14,8 @@ class Item:
 
     def get_effect(self):
         return self.__effect
+
+
     
 def addItem():
     Burger = Item("Hamburguesa", "Restaura 20 puntos de vida")

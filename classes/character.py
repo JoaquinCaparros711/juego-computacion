@@ -51,5 +51,5 @@ class Character:
         self.__level += level
     
     def __str__(self):
-        return f"{self.__name}\nSalud: {self.__health}\nFuerza: {self.__strength}\nDefensa: {self.__defense}\nNivel: {self.__level}\n"
+        return f"{self.__name}:\nSalud: {self.__health}\nFuerza: {self.__strength}\nDefensa: {self.__defense}\nNivel: {self.__level}\n"
 

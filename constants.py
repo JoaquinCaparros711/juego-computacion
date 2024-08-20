@@ -7,14 +7,6 @@ def clear_console():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
-# def print_menu():
-#     clear_console()
-#     print(f"{'-'*40}")
-#     print(f"{' MENÚ PRINCIPAL ':-^40}")
-#     print(f"{'-'*40}")
-#     print(f"{'-'*40}")
-
-
 STARTING_POINTS = 250
 
 
@@ -37,48 +29,59 @@ def nameOfGame():
 def welcome():
 
     nameOfCharacter = input("\nIngrese el nombre para su personaje: ")
-
-    print("   ¡Bienvenido a las Aventuras del Jabalí!   ")
-
+    
+    print(f"\n¡Hola {nameOfCharacter}!")
+    time.sleep(3)
+    print("╔═════════════════════════════════════════════╗")
+    print("║   ¡Bienvenido a las Aventuras del Jabalí!   ║")
+    print("╚═════════════════════════════════════════════╝\n")
+    time.sleep(3)
 
     while True:
-        print(f"Tienes {STARTING_POINTS} puntos para distribuir en vida, fuerza y defensa.")
-        
+        print("╔══════════════════════════════════════════════════════════════════════════════╗")
+        print(f"║Primero que nada, tienes {STARTING_POINTS} puntos para distribuir en vida, fuerza y defensa.║")
+        print("╚══════════════════════════════════════════════════════════════════════════════╝")
+        time.sleep(3)
+        print("         ===>Pero CUIDADO, depende de vos en que enfocás tus puntos<===\n")
+        time.sleep(3)
         # Solicitar puntos para la vida
         health = float(input("Ingrese la cantidad de vida que desea tener: "))
         if health > STARTING_POINTS or health < 0:
-            print("Te excediste de puntos o ingresaste un valor no válido. Intenta de nuevo.")
+            print("Te excediste de puntos o ingresaste un valor no válido. Intenta de nuevo.\n")
             continue
 
         remaining_points = STARTING_POINTS - health
-        print(f"Te quedan {remaining_points} puntos.")
+        print(f"\nTe quedan {remaining_points} puntos.")
 
         # Bucle para solicitar puntos de fuerza
         while True:
             strength = float(input("Ingrese la cantidad de fuerza que desea tener: "))
             if strength > remaining_points or strength < 0:
-                print(f"Te excediste de puntos o ingresaste un valor no válido. Te quedan {remaining_points} puntos.")
+                print(f"Te excediste de puntos o ingresaste un valor no válido. Te quedan {remaining_points} puntos.\n")
             else:
                 break
 
         remaining_points -= strength
-        print(f"Te quedan {remaining_points} puntos.")
         defense = remaining_points
 
         # Creación del personaje
         character1 = Character(nameOfCharacter, health, strength, defense)
         print("Personaje creado con exito!!")
+        time.sleep(3)
+        clear_console()
 
         break
 
     print("\nAntes de comenzar, deberá elegir un tipo de animal:")
-    time.sleep(1)
-    print("(1) - Jabalí(+10 de fuerza)")
-    print("(2) - Rinoceronte(+10 de defensa)")
-    print("(3) - Buey(+10 de salud)")
+    time.sleep(2)
+    print("╔═════════════════════════════════════════════╗")
+    print("║(1) - Jabalí(+10 de fuerza)                  ║")
+    print("║(2) - Rinoceronte(+10 de defensa)            ║")
+    print("║(3) - Buey(+10 de salud)                     ║")
+    print("╚═════════════════════════════════════════════╝\n")
 
     while True:
-        characterOption = input(f"\nBienvenido {nameOfCharacter}!, ahora elija el Jabalí que desea utilizar (1-3): ")
+        characterOption = input(f"{nameOfCharacter}!, ahora elija el animal que desea utilizar (1-3): ")
         if characterOption in ["1", "2", "3"]:
             break
         else:
@@ -96,6 +99,7 @@ def welcome():
         character1.set_health(10)
     
     time.sleep(3)
+    clear_console()
 
     print(character1)
 
