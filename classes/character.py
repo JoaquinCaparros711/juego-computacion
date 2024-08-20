@@ -16,6 +16,7 @@ class Character:
         other.set_health(round(other.get_health() - damage))
         return damage
 
+    #! Hacer que cuando subas de nivel pases los ptos por atributo y la habilidad a la que queres agregarselos
     def level_up(self):
         self.__level += 1
         self.__health += 10

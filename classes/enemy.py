@@ -4,6 +4,7 @@ import random
 
 class Enemy:
 
+    #!Ver como subirle caracteristicas dependiendo dungeon
     def __init__(self, name):
         self.__name = name
         self.__health = self.__generate_health()

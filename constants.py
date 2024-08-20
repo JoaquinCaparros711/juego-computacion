@@ -29,16 +29,18 @@ def nameOfGame():
     print("╚═════╝░╚══════╝╚══════╝  ░╚════╝░╚═╝░░╚═╝╚═════╝░╚═╝░░╚═╝╚══════╝╚═╝\n")
 
 
+#! Preguntar funciones si van en el main
 def welcome():
-    print("   ¡Bienvenido a las Aventuras del Jabalí!   ")
-    print("\nAntes de comenzar, deberá elegir un tipo de jabalí:")
-    time.sleep(1)
-    print("(1) - Jabalí Europeo")
-    print("(2) - Pecarí tajacu")
-    print("(3) - Jabalí de la Isla de Java")
-
 
     nameOfCharacter = input("\nIngrese el nombre para su personaje: ")
+
+    print("   ¡Bienvenido a las Aventuras del Jabalí!   ")
+    print("\nAntes de comenzar, deberá elegir un tipo de animal:")
+    time.sleep(1)
+    print("(1) - Jabalí(+10 de fuerza)")
+    print("(2) - Rinoceronte(+10 de defensa)")
+    print("(3) - Buey(+10 de salud)")
+
 
     while True:
         characterOption = input(f"\nBienvenido {nameOfCharacter}!, ahora elija el Jabalí que desea utilizar (1-3): ")
@@ -51,9 +53,9 @@ def welcome():
     if characterOption == "1":
         print(f"\n{nameOfCharacter}, has elegido el Jabalí Europeo, muy buena opción")
     elif characterOption == "2":
-        print(f"\n{nameOfCharacter}, has elegido el Pecarí tajacu, muy buena opción")
+        print(f"\n{nameOfCharacter}, has elegido el Rinoceronte, muy buena opción")
     elif characterOption == "3":
-        print(f"\n{nameOfCharacter}, has elegido el Jabalí de la Isla de Java, muy buena opción")
+        print(f"\n{nameOfCharacter}, has elegido el Buey, muy buena opción")
     
     time.sleep(3)
 
