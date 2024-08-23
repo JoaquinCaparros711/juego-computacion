@@ -4,7 +4,7 @@
 
 class Character:
 
-    def __init__(self, name, health, strength, defense, level = 1):
+    def __init__(self, name = "", health = 0, strength = 0, defense = 0, level = 1):
         self.__name = name
         self.__health = health
         self.__strength = strength
@@ -25,24 +25,27 @@ class Character:
     
     def get_name(self):
         return self.__name
+    
+    def set_name(self, name):
+        self.__name = name
 
     def get_health(self):
         return self.__health
 
     def set_health(self, health):
-        self.__health += health
+        self.__health = health
     
     def get_strength(self):
         return self.__strength
     
     def set_strength(self, strength):
-        self.__strength += strength
+        self.__strength = strength
 
     def get_defense(self):
         return self.__defense
     
     def set_defense(self, defense):
-        self.__defense += defense
+        self.__defense = defense
 
     def get_level(self):
         return self.__level
