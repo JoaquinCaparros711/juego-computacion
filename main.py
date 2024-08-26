@@ -2,6 +2,7 @@ from classes.character import Character
 from classes.enemy import Enemy
 from constants import *
 import os, time
+import random
 
 
 
@@ -15,7 +16,7 @@ def welcome(character):
     print(f"\n¡Hola {nameOfCharacter}!")
     time.sleep(3)
     print("╔═════════════════════════════════════════════╗")
-    print("║   ¡Bienvenido a las Aventuras del Jabalí!   ║")
+    print("║   ¡Bienvenido a las Aventuras Salvajes!     ║")
     print("╚═════════════════════════════════════════════╝\n")
     time.sleep(3)
 
@@ -60,11 +61,7 @@ def welcome(character):
 
     print("\nAntes de comenzar, deberá elegir un tipo de animal:")
     time.sleep(2)
-    print("╔═════════════════════════════════════════════╗")
-    print("║(1) - Jabalí(+10 de fuerza)                  ║")
-    print("║(2) - Rinoceronte(+10 de defensa)            ║")
-    print("║(3) - Buey(+10 de salud)                     ║")
-    print("╚═════════════════════════════════════════════╝\n")
+    print(ANIMAL_MENU)
 
     while True:
         characterOption = input(f"{nameOfCharacter}!, ahora elija el animal que desea utilizar (1-3): ")
@@ -87,13 +84,10 @@ def welcome(character):
     time.sleep(3)
     clear_console()
 
-    print("Este es su personaje: ")
-    print(character)
-
     print(GAME_INFORMATION)
 
     
-def gameMenu(character, enemy):
+def gameMenu(character, enemies):
     while True:
         print("\n" + GAME_MENU)
 
@@ -102,7 +96,7 @@ def gameMenu(character, enemy):
         if playerOption in ["1", "2", "3", "4", "5"]:
             if playerOption == "1":
                 clear_console()
-                play(character, enemy)
+                play(character, enemies)
             elif playerOption == "2":
                 clear_console()
                 print(character)
@@ -120,26 +114,64 @@ def gameMenu(character, enemy):
             time.sleep(1)
 
 
-def dungeonGenerator(dungeon):
-    pass #! En base a la dungeon, 1,2, o 3 generar los bichos con sus respectivos puntos
+def dungeonGenerator(dungeon):#! En base a la dungeon, 1,2, o 3 generar los bichos con sus respectivos puntos
+    enemies = []
+    if dungeon == 1:
+        nameOfEnemies = ["Conejo", "Hiena", "Chancho", "Pollo", "Piche"]
+    elif dungeon == 2:
+        nameOfEnemies = ["Puma", "Toro", "lobo", "Cocodrilo", "Zorro"]
+    else:
+        nameOfEnemies = ["Tigre de bengala", "Hipopotamo", "Leon", "Elefante", "Gorila"]
+
+    for i in range(3):
+        enemies.append(Enemy(nameOfEnemies[random.randint(0, 4)]))
+    # for i in range(3):
+    #     print(enemies[i])
+    return enemies
 
 
-def play(character, enemy):
+def play(character, enemies):
     while True:
         print("\n" + PLAY_MENU)
 
-        playOption = input(f"{character.get_name()}!, que desea hacer? (1-5): ")
+        if not enemies:
+            print("¡Has derrotado a todos los enemigos de esta mazmorra!")
+            break
+
+        playOption = input(f"{character.get_name()}!, ¿qué desea hacer? (1-5): ")
 
         if playOption in ["1", "2", "3", "4", "5"]:
             if playOption == "1":  # Atacar
                 clear_console()
-                character.attack(enemy)
+                time.sleep(1)
+                if enemies[0].get_health() <= 0:
+                    print("Enemigo muerto! \n")
+                    del enemies[0]  # Elimina al enemigo derrotado
+                    if not enemies:
+                        print("¡Has derrotado a todos los enemigos de esta mazmorra!")
+                        break
+                else:
+                    character.attack(enemies[0])
+                    print(f"Vida del enemigo: {enemies[0].get_health()}")
+                    time.sleep(1)
+                    if enemies[0].get_health() <= 0:
+                        print("Enemigo muerto! \n")
+                        del enemies[0]
+                        if not enemies:
+                            print("¡Has derrotado a todos los enemigos de esta mazmorra!")
+                            break
+                    else:
+                        print(f"Ahora es el turno de {enemies[0].get_name()} de atacar!")
+                        time.sleep(1)
+                        enemies[0].attack(character)
+                        print(f"Tu vida quedó en: {character.get_health()}")
+                        time.sleep(1)
             elif playOption == "2":  # Ver características del personaje
                 clear_console()
                 print(character)
             elif playOption == "3":  # Ver características del enemigo
                 clear_console()
-                print(enemy)
+                print(enemies[0])
             elif playOption == "4":  # Guardar
                 clear_console()
                 print("Opción no implementada aún.")
@@ -150,14 +182,15 @@ def play(character, enemy):
             print("Opción no válida. Por favor, elegí un número entre 1 y 5.")
             time.sleep(1)
 
-                
-dungeon = 1
-enemy = Enemy("piche")
-character1 = Character()
 
+
+enemies = []
+dungeon = 1
+character1 = Character()
+enemies = dungeonGenerator(dungeon)
 print(NAME_OF_GAME)
 welcome(character1)
-gameMenu(character1, enemy)
+gameMenu(character1, enemies)
 
 
 

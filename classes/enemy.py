@@ -12,18 +12,21 @@ class Enemy:
         self.__defense = self.__generate_defense()
     
     def attack(self, other):
-        damage = max(self.__strength - other.get_defense()/4, 0)
-        other.set_health(round(other.get_health() - damage))
+        damage = max(self.__strength - other.get_defense() / 6, 0)
+        new_health = other.get_health() - damage
+        if new_health < 0:
+            new_health = 0  # Si la salud es negativa, se establece en 0
+        other.set_health(round(new_health))
         return damage
 
     def __generate_health(self):
         return random.randint(50, 100)
 
     def __generate_strength(self):
-        return random.randint(10, 20)
+        return random.randint(20, 25)
 
     def __generate_defense(self):
-        return random.randint(5, 15)
+        return random.randint(10, 15)
 
     def get_name(self):
         return self.__name

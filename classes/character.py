@@ -12,8 +12,11 @@ class Character:
         self.__level = level
     
     def attack(self, other):
-        damage = max(self.__strength - other.get_defense()/4, 0)
-        other.set_health(round(other.get_health() - damage))
+        damage = max(self.__strength - other.get_defense() / 2, 0)
+        new_health = other.get_health() - damage
+        if new_health < 0:
+            new_health = 0  # Si la salud es negativa, se establece en 0
+        other.set_health(round(new_health))
         return damage
 
     #! Hacer que cuando subas de nivel pases los ptos por atributo y la habilidad a la que queres agregarselos
