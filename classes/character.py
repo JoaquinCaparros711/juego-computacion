@@ -22,9 +22,9 @@ class Character:
     #! Hacer que cuando subas de nivel pases los ptos por atributo y la habilidad a la que queres agregarselos
     def level_up(self):
         self.__level += 1
-        self.__health += 10
-        self.__strength += 5
-        self.__defense += 3
+        self.__health += 20
+        self.__strength += 10
+        self.__defense += 10
     
     def get_name(self):
         return self.__name

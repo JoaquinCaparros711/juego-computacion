@@ -1,5 +1,6 @@
 from classes.character import Character
 from classes.enemy import Enemy
+from classes.dungeon import Dungeon
 from constants import *
 import os, time
 import random
@@ -87,7 +88,7 @@ def welcome(character):
     print(GAME_INFORMATION)
 
     
-def gameMenu(character, enemies):
+def gameMenu(character, enemies, dungeon):
     while True:
         print("\n" + GAME_MENU)
 
@@ -96,7 +97,7 @@ def gameMenu(character, enemies):
         if playerOption in ["1", "2", "3", "4", "5"]:
             if playerOption == "1":
                 clear_console()
-                play(character, enemies)
+                play(character, enemies, dungeon)
             elif playerOption == "2":
                 clear_console()
                 print(character)
@@ -114,23 +115,7 @@ def gameMenu(character, enemies):
             time.sleep(1)
 
 
-def dungeonGenerator(dungeon):#! En base a la dungeon, 1,2, o 3 generar los bichos con sus respectivos puntos
-    enemies = []
-    if dungeon == 1:
-        nameOfEnemies = ["Conejo", "Hiena", "Chancho", "Pollo", "Piche"]
-    elif dungeon == 2:
-        nameOfEnemies = ["Puma", "Toro", "lobo", "Cocodrilo", "Zorro"]
-    else:
-        nameOfEnemies = ["Tigre de bengala", "Hipopotamo", "Leon", "Elefante", "Gorila"]
-
-    for i in range(3):
-        enemies.append(Enemy(nameOfEnemies[random.randint(0, 4)]))
-    # for i in range(3):
-    #     print(enemies[i])
-    return enemies
-
-
-def play(character, enemies):
+def play(character, enemies, dungeon):
     while True:
         print("\n" + PLAY_MENU)
 
@@ -159,7 +144,9 @@ def play(character, enemies):
                         del enemies[0]
                         if not enemies:
                             print("¡Has derrotado a todos los enemigos de esta mazmorra!")
-                            break
+                            dungeon.set_level(dungeon.get_level() + 1)
+                            enemies = dungeon.dungeonGenerator()
+                            #break
                     else:
                         print(f"Ahora es el turno de {enemies[0].get_name()} de atacar!")
                         time.sleep(1)
@@ -185,12 +172,12 @@ def play(character, enemies):
 
 
 enemies = []
-dungeon = 1
+dungeon = Dungeon()
 character1 = Character()
-enemies = dungeonGenerator(dungeon)
+enemies = dungeon.dungeonGenerator()
 print(NAME_OF_GAME)
 welcome(character1)
-gameMenu(character1, enemies)
+gameMenu(character1, enemies, dungeon)
 
 
 
