@@ -1,32 +1,40 @@
 from classes.character import *
+import random
 
 
 class Item:
-    def __init__(self, name, effect):
+    def __init__(self, name = "", effect = "", type = "", value = 0):
         self.__name = name
         self.__effect = effect
+        self.__type = type
+        self.__value = value
 
     def __str__(self):
-        return f"{self.__name}: {self.__effect}"
+        return f"{self.__name}:\n{self.__effect}\nes de tipo: {self.__type}\nvalor: {self.__value}"
 
     def get_name(self):
         return self.__name
 
     def get_effect(self):
         return self.__effect
+    
+    def get_type(self):
+        return self.__type
+    
+    def get_value(self):
+        return self.__value
+    
+    # Función para dropear un ítem al azar
+    def drop_random_item(self, items_list):
+        if not items_list:
+            return "No hay ítems para dropear."
+    
+        dropped_item = random.choice(items_list)
+        
+        return dropped_item
 
 
     
-def addItem():
-    Burger = Item("Hamburguesa", "Restaura 20 puntos de vida")
-    Frenchfries = Item("Papas Fritas", "Restaura 10 puntos de vida")
-    Chocolate = Item("Chocolate", "Restaura 5 puntos de vida")
-    Cocacola = Item("Coca-Cola", "Aumenta la Fuerza en 5 puntos")
-    Nikesneakers = Item("Zapatillas Nike", "Aumenta la Fuerza en 5 puntos")
-    Goldchain = Item("Cadena de Oro", "Aumenta la Fuerza en 10 puntos")
-    Batmancostume = Item("Disfraz de Batman", "Aumenta la defensa en 15 puntos")
-    Kevlarvest = Item("Chaleco de kevlar", "Aumenta la defensa en 20 puntos")
-    Guccijacket = Item("Campera Gucci", "Aumenta la defensa en 5 puntos")
 
    
 

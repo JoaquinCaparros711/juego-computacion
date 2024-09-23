@@ -12,7 +12,7 @@ class EnemyBoss:
         self.__defense = self.__generate_defense()
     
     def attack(self, other):
-        damage = max(self.__strength - other.get_defense() / 6, 0)
+        damage = max(self.__strength - other.get_defense() / 5, 0)
         new_health = other.get_health() - damage
         if new_health < 0:
             new_health = 0  # Si la salud es negativa, se establece en 0
@@ -20,13 +20,22 @@ class EnemyBoss:
         return damage
 
     def __generate_health(self):
-        return round(random.uniform(50 * (self.get_dungeon() + 0.5), 100 * (self.get_dungeon() + 0.5)), 0)
+        if self.__dungeon == 2 or self.__dungeon == 3:
+            return round(random.uniform(125 * (self.get_dungeon() - 0.4), 175 * (self.get_dungeon() - 0.4)))
+        else:
+            return random.randint(125 , 175)
 
     def __generate_strength(self):
-        return round(random.uniform(20 * (self.get_dungeon() + 0.5), 25 * (self.get_dungeon() + 0.5)), 0)
+        if self.__dungeon == 2 or self.__dungeon == 3:
+            return round(random.uniform(25 * (self.get_dungeon() - 0.4), 35 * (self.get_dungeon() - 0.4)))
+        else:
+            return random.randint(25 , 35)
 
     def __generate_defense(self):
-        return round(random.uniform(10 * (self.get_dungeon() + 0.5), 15 * (self.get_dungeon() + 0.5)), 0)
+        if self.__dungeon == 2 or self.__dungeon == 3:
+            return round(random.uniform(20 * (self.get_dungeon() - 0.4), 30 * (self.get_dungeon() - 0.4)))
+        else:
+            return random.randint(20 , 30)
 
     def get_name(self):
         return self.__name
@@ -48,6 +57,7 @@ class EnemyBoss:
 
     def set_health(self, health):
         self.__health = health
+
     
     def __str__(self):
         return f"{self.__name}\nSalud: {self.__health}\nFuerza: {self.__strength}\nDefensa: {self.__defense}\n"
