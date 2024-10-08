@@ -10,7 +10,7 @@ class Item:
         self.__value = value
 
     def __str__(self):
-        return f"{self.__name}:\n{self.__effect}\nes de tipo: {self.__type}\nvalor: {self.__value}"
+        return f"{self.__name}:\n{self.__effect}"
 
     def get_name(self):
         return self.__name

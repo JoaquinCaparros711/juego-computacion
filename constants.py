@@ -3,7 +3,7 @@
 
 
 
-STARTING_POINTS = 350
+STARTING_POINTS = 400
 
 
 NAME_OF_GAME = """\n
@@ -21,50 +21,70 @@ NAME_OF_GAME = """\n
     ╚═════╝░╚═╝░░╚═╝╚══════╝░░░╚═╝░░░╚═╝░░╚═╝░╚════╝░╚══════╝╚═════╝░
     """
 
-GAME_INFORMATION = """
-Bienvenido al desafío definitivo: ¡una aventura épica en un mundo salvaje!
-
-Tu misión es atravesar 3 mazmorras, cada una más peligrosa que la anterior. En cada mazmorra, deberás enfrentarte a 3 criaturas feroces y finalmente a un poderoso jefe que pondrá a prueba todas tus habilidades.
-
-A lo largo de tu travesía, derrotar a enemigos te otorgará valiosos ítems que podrás usar para fortalecerte en combate. Cada mazmorra aumenta en dificultad, con criaturas más astutas y jefes más temibles a medida que avanzas.
-
-¿Tienes lo necesario para sobrevivir y convertirte en el verdadero campeón de las bestias? ¡MUCHA SUERTE!
+GAME_OVER = """
+░██████╗░░█████╗░███╗░░░███╗███████╗  ░█████╗░██╗░░░██╗███████╗██████╗░
+██╔════╝░██╔══██╗████╗░████║██╔════╝  ██╔══██╗██║░░░██║██╔════╝██╔══██╗
+██║░░██╗░███████║██╔████╔██║█████╗░░  ██║░░██║╚██╗░██╔╝█████╗░░██████╔╝
+██║░░╚██╗██╔══██║██║╚██╔╝██║██╔══╝░░  ██║░░██║░╚████╔╝░██╔══╝░░██╔══██╗
+╚██████╔╝██║░░██║██║░╚═╝░██║███████╗  ╚█████╔╝░░╚██╔╝░░███████╗██║░░██║
+░╚═════╝░╚═╝░░╚═╝╚═╝░░░░░╚═╝╚══════╝  ░╚════╝░░░░╚═╝░░░╚══════╝╚═╝░░╚═╝
 """
 
-GAME_MENU = """
-╔═════════════════════════════════════════════════╗
+GAME_INFORMATION = """
+¡Bienvenido al desafío definitivo, una aventura épica en un mundo salvaje y lleno de peligros!
+
+Tu misión es atravesar 3 mazmorras, cada una más letal que la anterior. En el corazón de cada mazmorra, te enfrentarás a 3 criaturas feroces, y al final, te aguarda un imponente jefe que pondrá a prueba todas tus habilidades y estrategia.
+
+A medida que derrotes a tus enemigos, obtendrás valiosos ítems que se almacenarán en tu inventario. Úsalos sabiamente cuando más los necesites. La dificultad aumentará a cada paso, con enemigos más inteligentes y jefes cada vez más desafiantes.
+
+Dispondrás de un superataque devastador que solo podrás usar una vez por nivel, regenerándose al subir de rango. ¡Será tu as bajo la manga!
+
+¿Tienes el valor y la astucia suficientes para sobrevivir a estas pruebas y convertirte en el campeón definitivo de las bestias? ¡El destino está en tus manos! ¡Buena suerte, bestia!"""
+
+
+GAME_MENU = """╔═════════════════════════════════════════════════╗
 ║¿Que desea hacer?                                ║
-║(1) - Empezar a Jugar                            ║
+║(1) - Empezar a Jugar 🎮                         ║
 ║(2) - Ver caracteristicas del personaje          ║
-║(3) - Ver informacion del juego                  ║ #!Ver tema de guardado
-║(4) - Guardar                                    ║
-║(5) - Salir del juego                            ║
+║(3) - Ver informacion del juego 📖               ║
+║(4) - Guardar progreso 💾                        ║
+║(5) - Salir del juego 🔙                         ║
 ╚═════════════════════════════════════════════════╝
 """
 
-PLAY_MENU = """
-╔════════════════════════════════════════════════════╗
+PLAY_MENU = """╔════════════════════════════════════════════════════╗
 ║¿Que desea hacer?                                   ║
-║(1) - Atacar                                        ║
+║(1) - Atacar ⚔️                                      ║
 ║(2) - Ver caracteristicas del personaje             ║
-║(3) - Ver caracteristicas del enemigo               ║
-║(4) - Guardar                                       ║
-║(5) - Volver hacia atras                            ║
+║(3) - Ver caracteristicas del enemigo 👾            ║
+║(4) - Ver inventario 🎒                             ║
+║(5) - Guardar progreso 💾                           ║
+║(6) - Volver hacia atras 🔙                         ║
 ╚════════════════════════════════════════════════════╝
 """
 
 ANIMAL_MENU = """
 ╔═════════════════════════════════════════════╗
-║(1) - Jabalí(+20 de fuerza)                  ║
-║(2) - Rinoceronte(+20 de defensa)            ║
-║(3) - Buey(+30 de salud)                     ║
+║(1) - 🐗 Jabalí(+20 de fuerza) 🐗            ║
+║(2) - 🦏 Rinoceronte(+20 de defensa) 🦏      ║
+║(3) - 🐂 Buey(+30 de salud) 🐂               ║
 ╚═════════════════════════════════════════════╝
 """
 
-ITEMS_MENU = """ Has derrotado a un enemigo, tienes la posibilidad de agarrar o dejar un Item:
+ITEMS_MENU = """
 ╔═════════════════════════════════════════════╗
-║(1) - Agarrar Item                           ║
-║(2) - Dejar Item                             ║
+║¿Que desea hacer?                            ║
+║(1) - Consumir item                          ║
+║(2) - Volver hacia atras 🔙                  ║
+╚═════════════════════════════════════════════╝
+"""
+
+SAVE_MENU = """ 
+╔═════════════════════════════════════════════╗
+║¿Que desea hacer?                            ║
+║(1) - Cargar partida 💾                      ║
+║(2) - Nueva partida 🆕                       ║
+║(3) - Salir del juego 🔙                     ║
 ╚═════════════════════════════════════════════╝
 """
 
@@ -83,9 +103,10 @@ POINTS = f"""╔═════════════════════�
               ===> ¡Ojo! Enfocá bien tus puntos para sobrevivir <===          
 """
 
-ENTRY_HEALTH = "Ingrese la cantidad de vida que desea tener: "
-ENTRY_STRENGTH = "Ingrese la cantidad de fuerza que desea tener: "
+ENTRY_HEALTH = "Ingrese la cantidad de vida que desea tener(máximo 300pts)❤️: "
+ENTRY_STRENGTH = "Ingrese la cantidad de fuerza que desea tener(máximo 150pts)⚔️: "
 ENTRY_ANIMAL = "\nAntes de comenzar, deberá elegir un tipo de animal: "
+ENTRY_SAVE = "Ingrese su opción: "
 
 EXCEEDED_POINTS = "Te excediste de puntos o ingresaste un valor no válido. Intenta de nuevo.\n"
 
@@ -93,7 +114,32 @@ CREATED_CHARACTER = "\nPersonaje creado con exito!!"
 
 INVALID_OPTION_ANIMAL = "Opción no válida. Por favor, elige un número entre 1 y 3."
 INVALID_OPTION_MENU = "Opción no válida. Por favor, elige un número entre 1 y 5."
+INVALID_OPTION_MENU2 = "Opción no válida. Por favor, elige un número entre 1 y 6."
+INVALID_OPTION_ITEMS_MENU = "Opción no válida. Por favor, elige 1 0 2."
+INVALID_OPTION_MENU_SAVE = "Opción no válida. Por favor, elige un número entre 1 y 3."
+
+
 
 BEFORE_STATICSTIC = "\nTus estadísticas eran: "
 AFTER_STATICSTIC = "Tus estadísticas actuales son: "
-GAME_OVER = "GAME OVER"
+
+INVALID_NUMBER_ERROR = "Error: Debes ingresar un número válido o te exediste."
+
+#! SAVE
+LOADED_PROCESS = "\nProgreso cargado exitosamente 💾\n"
+FILE_NOT_FOUND = "\nNo se encontró ningún archivo de guardado 💾\n"
+
+#!Game menu
+ERROR_LOAD = "No se pudo cargar el juego."
+GAME_LOADED_SUCCESSFULLY = "Juego cargado exitosamente. ¡Sigue jugando!"
+COULD_NOT_BE_LOADED = "No se pudo cargar el juego 💾"
+
+#! DEF PLAY
+CONGRATULATIONS = """"
+██╗░░██╗░█████╗░░██████╗  ░██████╗░░█████╗░███╗░░██╗░█████╗░██████╗░░█████╗░░█████╗░██╗
+██║░░██║██╔══██╗██╔════╝  ██╔════╝░██╔══██╗████╗░██║██╔══██╗██╔══██╗██╔══██╗██╔══██╗██║
+███████║███████║╚█████╗░  ██║░░██╗░███████║██╔██╗██║███████║██║░░██║██║░░██║██║░░██║██║
+██╔══██║██╔══██║░╚═══██╗  ██║░░╚██╗██╔══██║██║╚████║██╔══██║██║░░██║██║░░██║██║░░██║╚═╝
+██║░░██║██║░░██║██████╔╝  ╚██████╔╝██║░░██║██║░╚███║██║░░██║██████╔╝╚█████╔╝╚█████╔╝██╗
+╚═╝░░╚═╝╚═╝░░╚═╝╚═════╝░  ░╚═════╝░╚═╝░░╚═╝╚═╝░░╚══╝╚═╝░░╚═╝╚═════╝░░╚════╝░░╚════╝░╚═╝
+"""

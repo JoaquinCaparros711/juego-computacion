@@ -22,21 +22,21 @@ class Enemy:
 
     def __generate_health(self):
         if self.__dungeon == 2 or self.__dungeon == 3:
-            return round(random.uniform(100 * (self.get_dungeon() - 0.4), 150 * (self.get_dungeon() - 0.4)))
+            return round(random.uniform(130 * (self.get_dungeon() - 0.6), 180 * (self.get_dungeon() - 0.6)))
         else:
-            return random.randint(100 , 150)
+            return random.randint(130 , 180)
 
     def __generate_strength(self):
         if self.__dungeon == 2 or self.__dungeon == 3:
-            return round(random.uniform(20 * (self.get_dungeon() - 0.4), 30 * (self.get_dungeon() - 0.4)))
+            return round(random.uniform(30 * (self.get_dungeon() - 0.6), 40 * (self.get_dungeon() - 0.6)))
         else:
-            return random.randint(20 , 30)
+            return random.randint(30 , 40)
 
     def __generate_defense(self):
         if self.__dungeon == 2 or self.__dungeon == 3:
-            return round(random.uniform(15 * (self.get_dungeon() - 0.4), 25 * (self.get_dungeon() - 0.4)))
+            return round(random.uniform(20 * (self.get_dungeon() - 0.6), 30 * (self.get_dungeon() - 0.6)))
         else:
-            return random.randint(15 , 25)
+            return random.randint(20 , 30)
 
     def get_name(self):
         return self.__name
@@ -60,5 +60,5 @@ class Enemy:
         self.__health = health
     
     def __str__(self):
-        return f"{self.__name}\nSalud: {self.__health}\nFuerza: {self.__strength}\nDefensa: {self.__defense}\n"
+        return f"{self.__name}\nSalud: {self.__health}\nFuerza: {self.__strength}\nDefensa: {self.__defense}"
 
