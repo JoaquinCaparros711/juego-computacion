@@ -88,7 +88,7 @@ class Manager:
 
             enemies.extend(dungeon.dungeonGenerator())
     
-    def animations(self, string):
+    def animations(self, string): #! sacar
         for char in string:
             print(char, end='', flush=True)
             time.sleep(0.02)

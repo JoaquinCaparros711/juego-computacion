@@ -28,7 +28,7 @@ class Dungeon:
             nameOfEnemyBoss = "Oso Grizzly"
 
         # Asegura que la cantidad de enemigos no exceda el número de nombres disponibles
-        num_enemies = min(3, len(nameOfEnemies))
+        num_enemies = min(3, len(nameOfEnemies)) #! ver esto inclusive
 
         # Selecciona enemigos únicos
         selected_enemies = random.sample(nameOfEnemies, num_enemies)

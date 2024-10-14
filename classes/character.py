@@ -21,7 +21,7 @@ class Character:
         other.set_health(round(new_health))
         return damage
     
-    def super_attack(self, other):
+    def super_attack(self, other): #!juntar en una funcion
         damage = max(self.__strength*1.5 - other.get_defense() / 2.5, 0)
         new_health = other.get_health() - damage
         if new_health < 0:
@@ -29,13 +29,13 @@ class Character:
         other.set_health(round(new_health))
         return damage
     
-    def animations(self, string):
+    def animations(self, string): #! Sacar de aca, y crear clase animaciones
         for char in string:
             print(char, end='', flush=True)
             time.sleep(0.02)
         print()
     
-    def choose_super_atack(self, character, current_enemy):
+    def choose_super_atack(self, character, current_enemy): #! bool 
         while True:
             if character.get_super_attack() == False:
                 self.animations(f"{character.get_name()} no tiene disponible el super ataque hasta subir de nivel (atacás normal)⚔️")
@@ -56,7 +56,7 @@ class Character:
                 break
 
     def level_up(self):
-        self.__level += 1
+        self.__level += 1 #! Constantes
         self.__health += 25
         self.__strength += 15
         self.__defense += 15

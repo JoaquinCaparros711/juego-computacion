@@ -5,7 +5,7 @@ from constants import *
 class SaveAndLoad:
 
 
-    # Método para guardar el juego #!Poner estas funciones en otros archivos PREGUNTARRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
+    # Método para guardar el juego
     def save_game(self, character, enemies, dungeon, list_items_saved, file_name="savegame.pkl"):
         save_data = {
             'character': character,

@@ -52,8 +52,7 @@ GAME_MENU = f"""{Fore.BLACK + Back.WHITE}╔════════════
 ║(3) - Ver informacion del juego 📖               ║
 ║(4) - Guardar progreso 💾                        ║
 ║(5) - Salir del juego 🔙                         ║
-╚═════════════════════════════════════════════════╝
-{Back.RESET}"""
+╚═════════════════════════════════════════════════╝{Back.RESET}"""
 
 PLAY_MENU = f"""{Fore.BLACK + Back.WHITE}╔════════════════════════════════════════════════════╗
 ║¿Que desea hacer?                                   ║
