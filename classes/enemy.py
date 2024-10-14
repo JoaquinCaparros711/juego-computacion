@@ -22,19 +22,19 @@ class Enemy:
 
     def __generate_health(self):
         if self.__dungeon == 2 or self.__dungeon == 3:
-            return round(random.uniform(130 * (self.get_dungeon() - 0.6), 180 * (self.get_dungeon() - 0.6)))
+            return round(random.uniform(130 * (self.get_dungeon() - 0.7), 180 * (self.get_dungeon() - 0.7)))
         else:
             return random.randint(130 , 180)
 
     def __generate_strength(self):
         if self.__dungeon == 2 or self.__dungeon == 3:
-            return round(random.uniform(30 * (self.get_dungeon() - 0.6), 40 * (self.get_dungeon() - 0.6)))
+            return round(random.uniform(30 * (self.get_dungeon() - 0.7), 40 * (self.get_dungeon() - 0.7)))
         else:
             return random.randint(30 , 40)
 
     def __generate_defense(self):
         if self.__dungeon == 2 or self.__dungeon == 3:
-            return round(random.uniform(20 * (self.get_dungeon() - 0.6), 30 * (self.get_dungeon() - 0.6)))
+            return round(random.uniform(20 * (self.get_dungeon() - 0.7), 30 * (self.get_dungeon() - 0.7)))
         else:
             return random.randint(20 , 30)
 

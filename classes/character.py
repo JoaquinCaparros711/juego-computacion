@@ -11,6 +11,7 @@ class Character:
         self.__defense = defense
         self.__level = level
         self.__super_attack = super_attack
+        
     
     def attack(self, other):
         damage = max(self.__strength - other.get_defense() / 2.5, 0)
@@ -21,12 +22,33 @@ class Character:
         return damage
     
     def super_attack(self, other):
-        damage = max(self.__strength*1.5 - other.get_defense() / 2.5, 0)
+        damage = max(self.__strength*1.4 - other.get_defense() / 2.5, 0)
         new_health = other.get_health() - damage
         if new_health < 0:
             new_health = 0  # Si la salud es negativa, se establece en 0
         other.set_health(round(new_health))
         return damage
+    
+    def choose_super_atack(self, character, current_enemy):
+        while True:
+            if character.get_super_attack() == False:
+                self.animations(f"{character.get_name()} no tiene disponible el super ataque hasta subir de nivel (atacás normal)⚔️")
+                #print(f"{character.get_name()} no tiene disponible el super ataque hasta subir de nivel (atacás normal)⚔️")
+                character.attack(current_enemy)
+                break
+            try:
+                self.animations(f"{character.get_name()} quieres usar tu super ataque(SI:1 NO:2): ")
+                select_super_attack = input()
+                if select_super_attack == "1":
+                        character.super_attack(current_enemy)
+                        character.set_super_attack(False)
+                        break
+                elif select_super_attack == "2":
+                    character.attack(current_enemy)
+                    break
+            except ValueError:
+                print("Poner error")
+                break
 
     def level_up(self):
         self.__level += 1
@@ -72,5 +94,5 @@ class Character:
         self.__super_attack = super_attack
     
     def __str__(self):
-        return f"{self.__name}:\n❤️ Salud: {self.__health}\n⚔️ Fuerza: {self.__strength}\n🛡️ Defensa: {self.__defense}\nNivel: {self.__level}"
+        return f"{self.__name}:\nSalud: {self.__health}❤️\nFuerza: {self.__strength}⚔️\nDefensa: {self.__defense}🛡️\nNivel: {self.__level}"
 

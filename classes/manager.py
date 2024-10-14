@@ -1,8 +1,15 @@
-import os, time, pickle, random
+import os, time, random, pygame
 from classes.item import Item
 from constants import *
+from colorama import Fore, Style, init
+from classes.saveAndLoad import SaveAndLoad
 
 
+init()
+pygame.init()
+openbag_path = "sounds/openbag.wav"
+openbag = pygame.mixer.Sound("sounds/openbag.wav")
+saveAndLoad = SaveAndLoad()
 
 list_items = [
     Item("Hamburguesa🍔", "Restaura 50 puntos de vida", "Salud", 50),
@@ -58,78 +65,12 @@ class Manager:
     #         print(f"👾 {enemy.get_name()} está en la posición {enemy_position}.")
 
     #     print("\nLeyenda: 👤 = Jugador, 👾 = Enemigo, 🟩 = Espacio libre")
-
-    # Método para guardar el juego
-    def save_game(self, character, enemies, dungeon, list_items_saved, file_name="savegame.pkl"):
-        save_data = {
-            'character': character,
-            'enemies': enemies,
-            'dungeon': dungeon,
-            'list_items_saved': list_items_saved
-        }
-        with open(file_name, 'wb') as save_file:
-            pickle.dump(save_data, save_file)
-        print(f"\nProgreso guardado exitosamente en {file_name} 💾")
-
-
-    # Método para cargar el juego
-    def load_game(self, file_name="savegame.pkl"):
-        if os.path.exists(file_name):
-            with open(file_name, 'rb') as save_file:
-                save_data = pickle.load(save_file)
-            print(LOADED_PROCESS)
-            return save_data['character'], save_data['enemies'], save_data['dungeon'], save_data['list_items_saved']
-        else:
-            print(FILE_NOT_FOUND)
-            return None, None, None
-    
-    def use_item(self, list_items_saved, character):
-        # Mostrar inventario
-        if len(list_items_saved) <= 0:
-            print("📭 Tu inventario está vacío.")
-            return
-
-        print("🎒 Inventario:")
-        for i in range(len(list_items_saved)):
-            print("item", i + 1, list_items_saved[i].get_name())
-
-        while True:
-            try:
-                item_choice = int(input("Selecciona el número del item que deseas usar (Ingresa 9 si no quieres usar ninguno): "))
-                item_choice = item_choice - 1
-                
-                if item_choice == 9:
-                    break
-
-                selected_item = list_items_saved[item_choice]
-                # Aplicar los efectos del item al personaje
-                if selected_item.get_type() == "Salud":
-                    character.set_health(character.get_health() + selected_item.get_value())
-                    print(f"\n{selected_item.get_effect()}!!")
-                    print(f"💊 Salud actual: {character.get_health()}")
-                elif selected_item.get_type() == "Fuerza":
-                    character.set_strength(character.get_strength() + selected_item.get_value())
-                    print(f"\n{selected_item.get_effect()}!!")
-                    print(f"💪 Fuerza actual: {character.get_strength()}")
-                elif selected_item.get_type() == "Defensa":
-                    character.set_defense(character.get_defense() + selected_item.get_value())
-                    print(f"\n{selected_item.get_effect()}!!")
-                    print(f"🛡️ Defensa actual: {character.get_defense()}")
-                # Eliminar el item del inventario tras usarlo
-                list_items_saved.pop(item_choice)
-                break
-            except ValueError:
-                print("Por favor ingresa un número válido.\n")
         
-    def handle_item_drop(self, character, item, list_items, list_items_saved): #Lógica para manejar la recolección del item tras derrotar a un enemigo.
-        dropped_item = item.drop_random_item(list_items)
-        print(f"{character.get_name()} se ha añadido al inventario: \n{dropped_item.get_name()}")
-        list_items_saved.append(dropped_item)
-        
-
 
     def handle_dungeon_progression(self, character, dungeon, enemies): #Lógica para manejar la transición y progreso en la mazmorra.
         if not enemies:
+            self.clear_console()
+            time.sleep(2)
             print(f"\n🎊 ¡Has derrotado a todos los enemigos de la mazmorra {dungeon.get_level()}! 🎊")
 
             # Verificar si es la mazmorra 3 para terminar el juego
@@ -147,20 +88,26 @@ class Manager:
             dungeon.set_level(dungeon.get_level() + 1)
 
             enemies.extend(dungeon.dungeonGenerator())
-        
+    
+    def animations(self, string):
+        for char in string:
+            print(char, end='', flush=True)
+            time.sleep(0.02)
+        print()
         
     def welcome(self, character):
         print(NAME_OF_GAME)
-        time.sleep(1)    
-    
+        time.sleep(1) 
         nameOfCharacter = input(ENTRY_NAME)
         print(f"\n¡Hola {nameOfCharacter}!")
-        time.sleep(3)
-        print(WELCOME)
-        time.sleep(2)
+        #time.sleep(3)
+        self.animations(WELCOME)
+        # print(WELCOME)
+        # time.sleep(2)
             
         while True:
-            print(POINTS)
+            #print(POINTS)
+            self.animations(POINTS)
             time.sleep(3)
                     
             try:
@@ -206,7 +153,7 @@ class Manager:
         print(ANIMAL_MENU)
 
         while True:
-            characterOption = input(f"{nameOfCharacter}!, ahora elija el animal que desea utilizar (1-3): ")
+            characterOption = input(f"{Fore.BLUE}{nameOfCharacter}!, ahora elija el animal que desea utilizar (1-3): ")
             if characterOption in ["1", "2", "3"]:
                 break
             else:
@@ -234,7 +181,7 @@ class Manager:
         while True:
             print("\n" + GAME_MENU)
 
-            playerOption = input(f"{character.get_name()}!, ¿qué desea hacer? (1-5): ")
+            playerOption = input(f"{Fore.BLUE}{character.get_name()}!, ¿qué desea hacer? (1-5): ")
 
             if playerOption in ["1", "2", "3", "4", "5", "6"]:
                 if playerOption == "1":
@@ -248,7 +195,7 @@ class Manager:
                     print(GAME_INFORMATION)
                 elif playerOption == "4": 
                     self.clear_console()
-                    self.save_game(character, enemies, dungeon, list_items_saved)
+                    saveAndLoad.save_game(character, enemies, dungeon, list_items_saved)
                 elif playerOption == "5":
                     self.clear_console()
                     break
@@ -265,11 +212,10 @@ class Manager:
             save_option = input(ENTRY_SAVE)
             if save_option == "1":
                 self.clear_console()
-                character, enemies, dungeon, list_items_saved = self.load_game()
+                character, enemies, dungeon, list_items_saved = saveAndLoad.load_game()
                 if character is None:
                     print(COULD_NOT_BE_LOADED)
                 else:
-                    print(GAME_LOADED_SUCCESSFULLY)
                     self.gameMenu(character, enemies, dungeon, item, list_items_saved)
             elif save_option == "2":
                 self.clear_console()
@@ -281,31 +227,12 @@ class Manager:
             else:
                 print(INVALID_OPTION_MENU_SAVE)
     
-    def choose_super_atack(self, character, current_enemy):
-        while True:
-            if character.get_super_attack() == False:
-                print(f"{character.get_name()} no tiene disponible el super ataque hasta subir de nivel (atacás normal)⚔️")
-                character.attack(current_enemy)
-                break
-            try:
-                select_super_attack = input(f"{character.get_name()} quieres usar tu super ataque(SI:1 NO:2)⚔️: ")
-                if select_super_attack == "1":
-                        character.super_attack(current_enemy)
-                        character.set_super_attack(False)
-                        break
-                elif select_super_attack == "2":
-                    character.attack(current_enemy)
-                    break
-            except ValueError:
-                print("Poner error")
-                break
-    
 
     def play(self, character, enemies, dungeon, item, list_items_saved):
         while True:
             print("\n" + PLAY_MENU)
 
-            playOption = input(f"{character.get_name()}!, ¿qué desea hacer? (1-6): ")
+            playOption = input(f"{Fore.BLUE}{character.get_name()}!, ¿qué desea hacer? (1-6): ")
 
             if playOption in ["1", "2", "3", "4", "5", "6"]:
                 if playOption == "1":  
@@ -316,68 +243,83 @@ class Manager:
                         print(GAME_OVER)
                         break
                     else:
-                        first_turn = random.choice(["character", "enemy"])
-                        current_enemy = enemies[0]
-                        
-                        if character.get_super_attack() == True:
-                            status_super_attack = "DISPONIBLE"
+                        if not enemies and dungeon.get_level() == 3:
+                            self.handle_dungeon_progression(character, dungeon, enemies)
                         else:
-                            status_super_attack = "NO DISPONIBLE"
+                            first_turn = random.choice(["character", "enemy"])
+                            current_enemy = enemies[0]
+                            
+                            if character.get_super_attack() == True:
+                                status_super_attack = "DISPONIBLE"
+                            else:
+                                status_super_attack = "NO DISPONIBLE"
 
-                        if (first_turn == "character"):
+                            if (first_turn == "character"):
 
-                            print(f"🆚 Tu oponente es: *{current_enemy.get_name()}*")
-                            time.sleep(1)
-                            print(f"Es tu turno de atacar ⚔️, super ataque {status_super_attack}, {character.get_name()}!")
-                            time.sleep(1)
+                                self.animations(f"🆚 Tu oponente es: *{current_enemy.get_name()}*")
+                                #print(f"🆚 Tu oponente es: *{current_enemy.get_name()}*")
+                                time.sleep(1)
+                                self.animations(f"Es tu turno de atacar, super ataque {status_super_attack}, {character.get_name()}!⚔️")
+                                #print(f"Es tu turno de atacar, super ataque {status_super_attack}, {character.get_name()}!⚔️")
+                                time.sleep(1)
 
-                            self.choose_super_atack(character, current_enemy)
+                                character.choose_super_atack(character, current_enemy)
 
-                            print(f"💥 ¡Has golpeado a {current_enemy.get_name()}!")
-                            time.sleep(1)
-                            print(f"La vida actual de {current_enemy.get_name()} es: {current_enemy.get_health()}❤️")
-                            time.sleep(1)  
-                                                            
-                            if current_enemy.get_health() <= 0:
-                                print("🎉 ¡Enemigo derrotado! 🎉\n")
-                                if dungeon.get_level() <= 3 and enemies:
-                                    del enemies[0] 
-                                    self.handle_item_drop(character, item, list_items, list_items_saved)
-                                    self.handle_dungeon_progression(character, dungeon, enemies)
-                                    break
-                            print(f"Es turno de, {current_enemy.get_name()} de contraatacar!⚔️")
-                            time.sleep(1)
-                            current_enemy.attack(character)
-                            print(f"💔 ¡Cuidado! Tu vida ha quedado en: *{character.get_health()}*")
-                            time.sleep(1)
+                                self.animations(f"💥 ¡Has golpeado a {current_enemy.get_name()}!")
+                                #print(f"💥 ¡Has golpeado a {current_enemy.get_name()}!")
+                                time.sleep(1)
+                                self.animations(f"La vida actual de {current_enemy.get_name()} es: {current_enemy.get_health()}❤️")
+                                #print(f"La vida actual de {current_enemy.get_name()} es: {current_enemy.get_health()}❤️")
+                                time.sleep(1)  
+                                                                
+                                if current_enemy.get_health() <= 0:
+                                    print("🎉 ¡Enemigo derrotado! 🎉\n")
+                                    if dungeon.get_level() <= 3 and enemies:
+                                        del enemies[0] 
+                                        item.handle_item_drop(character, item, list_items, list_items_saved)
+                                        self.handle_dungeon_progression(character, dungeon, enemies)
+                                        break
+                                self.animations(f"Es turno de, {current_enemy.get_name()} de contraatacar!⚔️")
+                                #print(f"Es turno de, {current_enemy.get_name()} de contraatacar!⚔️")
+                                time.sleep(1)
+                                current_enemy.attack(character)
+                                self.animations(f"💔 ¡Cuidado! Tu vida ha quedado en: *{character.get_health()}*")
+                                #print(f"💔 ¡Cuidado! Tu vida ha quedado en: *{character.get_health()}*")
+                                time.sleep(1)
 
-                        if (first_turn == "enemy"):
-                            print(f"🆚 Tu oponente es: *{current_enemy.get_name()}*")
-                            time.sleep(1)
-                            print(f"Empieza atacando, {current_enemy.get_name()}!⚔️")
-                            time.sleep(1)
-                            current_enemy.attack(character)
-                            print(f"💔 ¡Cuidado! Tu vida ha quedado en: *{character.get_health()}*")
-                            time.sleep(1)
+                            if (first_turn == "enemy"):
+                                self.animations(f"🆚 Tu oponente es: *{current_enemy.get_name()}*")
+                                #print(f"🆚 Tu oponente es: *{current_enemy.get_name()}*")
+                                time.sleep(1)
+                                self.animations(f"Empieza atacando, {current_enemy.get_name()}!⚔️")
+                                #print(f"Empieza atacando, {current_enemy.get_name()}!⚔️")
+                                time.sleep(1)
+                                current_enemy.attack(character)
+                                self.animations(f"💔 ¡Cuidado! Tu vida ha quedado en: *{character.get_health()}*")
+                                #print(f"💔 ¡Cuidado! Tu vida ha quedado en: *{character.get_health()}*")
+                                time.sleep(1)
 
-                            if character.get_health() == 0:
-                                print(GAME_OVER)
-                                break           
-
-                            print(f"Ahora es tu turno de atacar, super ataque {status_super_attack}, {character.get_name()}!⚔️")
-                            time.sleep(1)
-                            self.choose_super_atack(character, current_enemy)
-                            print(f"💥 ¡Has golpeado a {current_enemy.get_name()}!")
-                            time.sleep(1)
-                            print(f"La vida actual de {current_enemy.get_name()} es: {current_enemy.get_health()}❤️")
-                            time.sleep(1)  
-                                                            
-                            if current_enemy.get_health() <= 0:
-                                print("🎉 ¡Enemigo derrotado! 🎉\n")
-                                if dungeon.get_level() <= 3 and enemies:
-                                    del enemies[0] 
-                                    self.handle_item_drop(character, item, list_items, list_items_saved)
-                                    self.handle_dungeon_progression(character, dungeon, enemies)
+                                if character.get_health() == 0:
+                                    print(GAME_OVER)
+                                    break           
+                                
+                                self.animations(f"Ahora es tu turno de atacar, super ataque {status_super_attack}, {character.get_name()}!⚔️")
+                                #print(f"Ahora es tu turno de atacar, super ataque {status_super_attack}, {character.get_name()}!⚔️")
+                                time.sleep(1)
+                                character.choose_super_atack(character, current_enemy)
+                                self.animations(f"💥 ¡Has golpeado a {current_enemy.get_name()}!")
+                                #print(f"💥 ¡Has golpeado a {current_enemy.get_name()}!")
+                                time.sleep(1)
+                                self.animations(f"La vida actual de {current_enemy.get_name()} es: {current_enemy.get_health()}❤️")
+                                #print(f"La vida actual de {current_enemy.get_name()} es: {current_enemy.get_health()}❤️")
+                                time.sleep(1)  
+                                                                
+                                if current_enemy.get_health() <= 0:
+                                    print("🎉 ¡Enemigo derrotado! 🎉\n")
+                                    if dungeon.get_level() <= 3 and enemies:
+                                        del enemies[0] 
+                                        item.handle_item_drop(character, item, list_items, list_items_saved)
+                                        self.handle_dungeon_progression(character, dungeon, enemies)
 
 
                 elif playOption == "2": 
@@ -387,18 +329,19 @@ class Manager:
                     self.clear_console()
                     print(enemies[0])
                 elif playOption == "4": 
+                    openbag.play()
                     self.clear_console()
                     items_options = input(ITEMS_MENU)
                     if items_options == "1":
                         self.clear_console()
-                        self.use_item(list_items_saved, character)
+                        item.use_item(list_items_saved, character)
                     elif items_options == "2":
                         break
                     else:
                         print(INVALID_OPTION_ITEMS_MENU)
                 elif playOption == "5": 
                     self.clear_console()
-                    self.save_game(character, enemies, dungeon, list_items_saved)
+                    saveAndLoad.save_game(character, enemies, dungeon, list_items_saved)
                 elif playOption == "6":  
                     self.clear_console()
                     break

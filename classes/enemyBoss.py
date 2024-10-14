@@ -21,21 +21,21 @@ class EnemyBoss:
 
     def __generate_health(self):
         if self.__dungeon == 2 or self.__dungeon == 3:
-            return round(random.uniform(145 * (self.get_dungeon() - 0.6), 200 * (self.get_dungeon() - 0.6)))
+            return round(random.uniform(140 * (self.get_dungeon() - 0.7), 195 * (self.get_dungeon() - 0.7)))
         else:
-            return random.randint(145 , 200)
+            return random.randint(140 , 195)
 
     def __generate_strength(self):
         if self.__dungeon == 2 or self.__dungeon == 3:
-            return round(random.uniform(35 * (self.get_dungeon() - 0.6), 45 * (self.get_dungeon() - 0.6)))
+            return round(random.uniform(33 * (self.get_dungeon() - 0.7), 43 * (self.get_dungeon() - 0.7)))
         else:
-            return random.randint(35 , 45)
+            return random.randint(33 , 43)
 
     def __generate_defense(self):
         if self.__dungeon == 2 or self.__dungeon == 3:
-            return round(random.uniform(25 * (self.get_dungeon() - 0.6), 35 * (self.get_dungeon() - 0.6)))
+            return round(random.uniform(24 * (self.get_dungeon() - 0.7), 34 * (self.get_dungeon() - 0.7)))
         else:
-            return random.randint(25, 35)
+            return random.randint(24, 34)
 
     def get_name(self):
         return self.__name

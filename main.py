@@ -4,6 +4,8 @@ from classes.manager import Manager
 from classes.item import Item
 from constants import *
 
+
+
 list_items_saved = []
 enemies = []
 manager = Manager()
