@@ -32,9 +32,13 @@ GAME_OVER = f"""{Fore.CYAN}
 GAME_INFORMATION = """
 ¡Bienvenido al desafío definitivo, una aventura épica en un mundo salvaje y lleno de peligros!
 
-Tu misión es atravesar 3 mazmorras, cada una más letal que la anterior. En el corazón de cada mazmorra, te enfrentarás a 3 criaturas feroces, y al final, te aguarda un imponente jefe que pondrá a prueba todas tus habilidades y estrategia.
+Tu misión es atravesar 3 mazmorras, cada una más letal que la anterior. En el corazón de cada mazmorra, te enfrentarás a 3 criaturas feroces, y al final, te aguarda un imponente jefe 
+que pondrá a prueba todas tus habilidades y estrategias.
 
-A medida que derrotes a tus enemigos, obtendrás valiosos ítems que se almacenarán en tu inventario. Úsalos sabiamente cuando más los necesites. La dificultad aumentará a cada paso, con enemigos más inteligentes y jefes cada vez más desafiantes.
+A medida que derrotes a tus enemigos, obtendrás valiosos ítems que se almacenarán en tu inventario. Úsalos sabiamente cuando más los necesites. La dificultad aumentará a 
+cada paso, con enemigos más inteligentes y jefes cada vez más desafiantes. Pero CUIDADO, Hya ítems defectuosos!
+
+Tienes un inventario de máximo 6 ítems.
 
 Dispondrás de un superataque devastador que solo podrás usar una vez por nivel, regenerándose al subir de rango. ¡Será tu as bajo la manga!
 
@@ -73,7 +77,7 @@ ANIMAL_MENU = f"""{Fore.BLACK + Back.WHITE}
 ITEMS_MENU = f"""{Fore.BLACK + Back.WHITE}
 ╔═════════════════════════════════════════════╗
 ║¿Que desea hacer?                            ║
-║(1) - Consumir item                          ║
+║(1) - Consumir ítem                          ║
 ║(2) - Volver hacia atras 🔙                  ║
 ╚═════════════════════════════════════════════╝
 {Back.RESET}"""
@@ -127,7 +131,7 @@ INVALID_NUMBER_ERROR = f"{Fore.BLUE}Error: Debes ingresar un número válido o t
 FILE_NOT_FOUND = f"{Fore.BLUE}\nNo se encontró ningún archivo de guardado 💾\n"
 
 #! LOAD
-SELECT_NUMBER_OF_ITEM = f"{Fore.BLUE}Selecciona el número del item que deseas usar (Ingresa 9 si no quieres usar ninguno): "
+SELECT_NUMBER_OF_ITEM = f"{Fore.BLUE}Selecciona el número del ítem que deseas usar (Ingresa 9 si no quieres usar ninguno): "
 EMPTY_INVENTORY = f"{Fore.BLUE}📭 Tu inventario está vacío."
 INVENTARY = f"{Fore.BLUE}🎒 Inventario:"
 

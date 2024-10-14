@@ -15,7 +15,7 @@ class SaveAndLoad:
         }
         with open(file_name, 'wb') as save_file:
             pickle.dump(save_data, save_file)
-        print(f"{Fore.BLUE}\nProgreso guardado exitosamente en {file_name} 💾")
+        print(f"{Fore.BLUE}\n{character.get_name()} tu proceso se ha guardado exitosamente en {file_name} 💾")
 
 
     # Método para cargar el juego

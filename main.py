@@ -2,7 +2,6 @@ from classes.character import Character
 from classes.dungeon import Dungeon
 from classes.manager import Manager
 from classes.item import Item
-from constants import *
 
 
 
@@ -15,5 +14,4 @@ character = Character()
 enemies = dungeon.dungeonGenerator()
 manager.save_menu(character, enemies, dungeon, item, list_items_saved)
 
-#!ver dungeons y nombres
 

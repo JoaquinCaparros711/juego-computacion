@@ -7,30 +7,28 @@ from classes.saveAndLoad import SaveAndLoad
 
 init()
 pygame.init()
-openbag_path = "sounds/openbag.wav"
-openbag = pygame.mixer.Sound("sounds/openbag.wav")
+chest = pygame.mixer.Sound("sounds/chest.wav")
+sound_win = pygame.mixer.Sound("sounds/win.wav")
+sound_game_over = pygame.mixer.Sound("sounds/gameOver.wav")
 saveAndLoad = SaveAndLoad()
 
 list_items = [
-    Item("Hamburguesa🍔", "Restaura 50 puntos de vida", "Salud", 50),
-    Item("Papas Fritas🍟", "Restaura 40 puntos de vida", "Salud", 40),
-    Item("Chocolate🍫", "Restaura 30 puntos de vida", "Salud", 30),
-    Item("Donas🍩", "Restaura 30 puntos de vida", "Salud", 30),
-    Item("Cangrejos🦀", "Disminuye 15 puntos de vida", "Salud", -15),
-    Item("Coca-Cola🥤", "Aumenta la fuerza en 5 puntos", "Fuerza", 5),
-    Item("Rockstar⚗️", "Disminuye la fuerza en 7 puntos", "Fuerza", -7),
-    Item("Zapatillas Nike👟", "Aumenta la fuerza en 5 puntos", "Fuerza", 5),
-    Item("Cadena de Oro🪙", "Aumenta la fuerza en 10 puntos", "Fuerza", 10),
-    Item("Disfraz de Batman🦇", "Aumenta la defensa en 15 puntos", "Defensa", 15),
-    Item("Chaleco de kevlar🦺", "Aumenta la defensa en 12 puntos", "Defensa", 12),
-    Item("Campera Gucci🧥", "Aumenta la defensa en 10 puntos", "Defensa", 10),
-    Item("Musculosa🎽", "Disminuye la defensa en 8 puntos", "Defensa", -8),
+    Item("Hamburguesa🍔", "Restaura 50 puntos de vida", "Salud", 50, "eat"),
+    Item("Papas Fritas🍟", "Restaura 40 puntos de vida", "Salud", 40, "eat"),
+    Item("Chocolate🍫", "Restaura 30 puntos de vida", "Salud", 30, "eat"),
+    Item("Donas🍩", "Restaura 30 puntos de vida", "Salud", 30, "eat"),
+    Item("Cangrejos🦀", "Disminuye 15 puntos de vida", "Salud", -15, "eat"),
+    Item("Coca-Cola🥤", "Aumenta la fuerza en 5 puntos", "Fuerza", 5, "drink"),
+    Item("Rockstar⚗️", "Disminuye la fuerza en 7 puntos", "Fuerza", -7, "drink"),
+    Item("Zapatillas Nike👟", "Aumenta la fuerza en 5 puntos", "Fuerza", 5, "eat"),
+    Item("Cadena de Oro🪙", "Aumenta la fuerza en 10 puntos", "Fuerza", 10, "eat"),
+    Item("Disfraz de Batman🦇", "Aumenta la defensa en 15 puntos", "Defensa", 15, "clothe"),
+    Item("Chaleco de kevlar🦺", "Aumenta la defensa en 12 puntos", "Defensa", 12, "clothe"),
+    Item("Campera Gucci🧥", "Aumenta la defensa en 10 puntos", "Defensa", 10, "clothe"),
+    Item("Musculosa🎽", "Disminuye la defensa en 8 puntos", "Defensa", -8, "clothe"),
 ]
 
 class Manager:
-
-    def __init__(self):
-        pass
 
     def clear_console(self):
         os.system('cls' if os.name == 'nt' else 'clear')
@@ -70,12 +68,13 @@ class Manager:
     def handle_dungeon_progression(self, character, dungeon, enemies): #Lógica para manejar la transición y progreso en la mazmorra.
         if not enemies:
             self.clear_console()
-            time.sleep(2)
+            time.sleep(3)
             print(f"\n🎊 ¡Has derrotado a todos los enemigos de la mazmorra {dungeon.get_level()}! 🎊")
 
             # Verificar si es la mazmorra 3 para terminar el juego
             if dungeon.get_level() == 3:
                 print(CONGRATULATIONS)
+                sound_win.play()
                 return True  # Retornar True si el juego debe terminar
 
             # Si no es la mazmorra 3, continúa con el siguiente nivel
@@ -161,7 +160,7 @@ class Manager:
                 time.sleep(2)
 
         if characterOption == "1":
-            print(f"\n{nameOfCharacter}, has elegido el Jabalí🐗, ¡una elección poderosa! Este animal es conocido por su tenacidad y resistencia.")
+            print(f"\n{nameOfCharacter}, has elegido el Jabalí🐗, ¡una elección poderosa! Este animal es conocido por su tenacidad y fuerza.")
             character.set_strength(character.get_strength() + 20)
         elif characterOption == "2":
             print(f"\n{nameOfCharacter}, has elegido el Rinoceronte🦏, ¡excelente decisión! Con su gran defensa, es casi imparable en el campo de batalla.")
@@ -241,6 +240,7 @@ class Manager:
 
                     if character.get_health() == 0:
                         print(GAME_OVER)
+                        sound_game_over.play()
                         break
                     else:
                         if not enemies and dungeon.get_level() == 3:
@@ -268,7 +268,7 @@ class Manager:
                                 self.animations(f"💥 ¡Has golpeado a {current_enemy.get_name()}!")
                                 #print(f"💥 ¡Has golpeado a {current_enemy.get_name()}!")
                                 time.sleep(1)
-                                self.animations(f"La vida actual de {current_enemy.get_name()} es: {current_enemy.get_health()}❤️")
+                                self.animations(f"La vida actual de {current_enemy.get_name()} es: {current_enemy.get_health()} ❤️")
                                 #print(f"La vida actual de {current_enemy.get_name()} es: {current_enemy.get_health()}❤️")
                                 time.sleep(1)  
                                                                 
@@ -301,6 +301,7 @@ class Manager:
 
                                 if character.get_health() == 0:
                                     print(GAME_OVER)
+                                    sound_game_over.play()
                                     break           
                                 
                                 self.animations(f"Ahora es tu turno de atacar, super ataque {status_super_attack}, {character.get_name()}!⚔️")
@@ -321,7 +322,6 @@ class Manager:
                                         item.handle_item_drop(character, item, list_items, list_items_saved)
                                         self.handle_dungeon_progression(character, dungeon, enemies)
 
-
                 elif playOption == "2": 
                     self.clear_console()
                     print(character)
@@ -329,7 +329,7 @@ class Manager:
                     self.clear_console()
                     print(enemies[0])
                 elif playOption == "4": 
-                    openbag.play()
+                    chest.play()
                     self.clear_console()
                     items_options = input(ITEMS_MENU)
                     if items_options == "1":

@@ -1,4 +1,4 @@
-
+import time
 
 
 
@@ -22,18 +22,23 @@ class Character:
         return damage
     
     def super_attack(self, other):
-        damage = max(self.__strength*1.4 - other.get_defense() / 2.5, 0)
+        damage = max(self.__strength*1.5 - other.get_defense() / 2.5, 0)
         new_health = other.get_health() - damage
         if new_health < 0:
             new_health = 0  # Si la salud es negativa, se establece en 0
         other.set_health(round(new_health))
         return damage
     
+    def animations(self, string):
+        for char in string:
+            print(char, end='', flush=True)
+            time.sleep(0.02)
+        print()
+    
     def choose_super_atack(self, character, current_enemy):
         while True:
             if character.get_super_attack() == False:
                 self.animations(f"{character.get_name()} no tiene disponible el super ataque hasta subir de nivel (atacás normal)⚔️")
-                #print(f"{character.get_name()} no tiene disponible el super ataque hasta subir de nivel (atacás normal)⚔️")
                 character.attack(current_enemy)
                 break
             try:
