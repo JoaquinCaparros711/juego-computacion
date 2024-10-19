@@ -1,7 +1,11 @@
 from classes.character import *
 import random, time, pygame
 from constants import *
+from classes.animations import Animations
 
+
+
+animation = Animations()
 
 pygame.init()
 eating = pygame.mixer.Sound("sounds/eating.wav")
@@ -44,58 +48,55 @@ class Item:
         
         return dropped_item
     
-    def animations(self, string):
-        for char in string:
-            print(char, end='', flush=True)
-            time.sleep(0.02)
-        print()
-    
     def use_item(self, list_items_saved, character):
+
         # Mostrar inventario
         if len(list_items_saved) <= 0:
-            self.animations(EMPTY_INVENTORY)
-            #print(EMPTY_INVENTORY)
+            animation.animations(EMPTY_INVENTORY)
             return
 
         print(INVENTARY)
         for i in range(len(list_items_saved)):
-            print("item", i + 1, list_items_saved[i].get_name())
+            print(f"item {i + 1}: {list_items_saved[i].get_name()}")  # Mejor formato de impresión
 
         while True:
             try:
-                self.animations(SELECT_NUMBER_OF_ITEM)
-                item_choice = int(input())
-                item_choice = item_choice - 1
-                
+                animation.animations(SELECT_NUMBER_OF_ITEM)
+                item_choice = int(input()) - 1  
 
-                if item_choice + 1 == 9: #!ACA ALGO Preguntar
+                if item_choice + 1 == 9:
                     break
 
-                selected_item = list_items_saved[item_choice]
-                
-                if selected_item.get_edible() == "eat":
-                    eating.play()
-                elif selected_item.get_edible() == "drink":
-                    drinking.play()
-                else:
-                    clothe.play()
+                if 0 <= item_choice < len(list_items_saved):
 
-                # Aplicar los efectos del item al personaje
-                if selected_item.get_type() == "Salud":
-                    character.set_health(character.get_health() + selected_item.get_value())
-                    print(f"El item que has consumido. {selected_item.get_effect()}")
-                    print(f"💊 Salud actual: {character.get_health()}")
-                elif selected_item.get_type() == "Fuerza":
-                    character.set_strength(character.get_strength() + selected_item.get_value())
-                    print(f"El item que has consumido. {selected_item.get_effect()}")
-                    print(f"💪 Fuerza actual: {character.get_strength()}")
-                elif selected_item.get_type() == "Defensa":
-                    character.set_defense(character.get_defense() + selected_item.get_value())
-                    print(f"El item que has consumido. {selected_item.get_effect()}")
-                    print(f"🛡️ Defensa actual: {character.get_defense()}")
-                # Eliminar el item del inventario tras usarlo
-                list_items_saved.pop(item_choice)
-                break
+                    #! verificar error fuera de index
+                    selected_item = list_items_saved[item_choice]
+                    
+                    if selected_item.get_edible() == "eat":
+                        eating.play()
+                    elif selected_item.get_edible() == "drink":
+                        drinking.play()
+                    else:
+                        clothe.play()
+
+                    # Aplicar los efectos del item al personaje
+                    if selected_item.get_type() == "Salud":
+                        character.set_health(character.get_health() + selected_item.get_value())
+                        print(f"El item que has consumido. {selected_item.get_effect()}")
+                        print(f"💊 Salud actual: {character.get_health()}")
+                    elif selected_item.get_type() == "Fuerza":
+                        character.set_strength(character.get_strength() + selected_item.get_value())
+                        print(f"El item que has consumido. {selected_item.get_effect()}")
+                        print(f"💪 Fuerza actual: {character.get_strength()}")
+                    elif selected_item.get_type() == "Defensa":
+                        character.set_defense(character.get_defense() + selected_item.get_value())
+                        print(f"El item que has consumido. {selected_item.get_effect()}")
+                        print(f"🛡️ Defensa actual: {character.get_defense()}")
+                    # Eliminar el item del inventario tras usarlo
+                    list_items_saved.pop(item_choice)
+                    break
+                else:
+                    print("¡Error! El número elegido está fuera del rango del inventario.\n")
             except ValueError:
                 print("Por favor ingresa un número válido.\n")
     

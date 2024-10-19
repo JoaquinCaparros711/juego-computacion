@@ -27,11 +27,8 @@ class Dungeon:
             nameOfEnemies = ["Tigre de bengala", "Hipopotamo", "León", "Elefante", "Gorila"]
             nameOfEnemyBoss = "Oso Grizzly"
 
-        # Asegura que la cantidad de enemigos no exceda el número de nombres disponibles
-        num_enemies = min(3, len(nameOfEnemies)) #! ver esto inclusive
-
-        # Selecciona enemigos únicos
-        selected_enemies = random.sample(nameOfEnemies, num_enemies)
+        # Selecciona enemigos únicos sin repeticiones
+        selected_enemies = random.sample(nameOfEnemies, 3)
 
         # Crea la lista de enemigos
         enemies = [Enemy(name, levelDungeon) for name in selected_enemies]

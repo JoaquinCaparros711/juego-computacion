@@ -4,7 +4,6 @@ import random
 
 class Enemy:
 
-    #!Ver como subirle caracteristicas dependiendo dungeon
     def __init__(self, name, dungeon):
         self.__name = name
         self.__dungeon = dungeon
@@ -21,20 +20,26 @@ class Enemy:
         return damage
 
     def __generate_health(self):
-        if self.__dungeon == 2 or self.__dungeon == 3:
-            return round(random.uniform(130 * (self.get_dungeon() - 0.7), 180 * (self.get_dungeon() - 0.7)))
+        if self.__dungeon == 2:
+            return round(random.uniform(130 * (self.get_dungeon() - 0.6), 180 * (self.get_dungeon() - 0.6)))
+        elif self.__dungeon == 3:
+            return round(random.uniform(130 * (self.get_dungeon() - 1), 180 * (self.get_dungeon() - 1)))
         else:
             return random.randint(130 , 180)
 
     def __generate_strength(self):
-        if self.__dungeon == 2 or self.__dungeon == 3:
-            return round(random.uniform(30 * (self.get_dungeon() - 0.7), 40 * (self.get_dungeon() - 0.7)))
+        if self.__dungeon == 2:
+            return round(random.uniform(30 * (self.get_dungeon() - 0.6), 40 * (self.get_dungeon() - 0.6)))
+        elif self.__dungeon == 3:
+            return round(random.uniform(30 * (self.get_dungeon() - 1), 40 * (self.get_dungeon() - 1)))
         else:
             return random.randint(30 , 40)
 
     def __generate_defense(self):
-        if self.__dungeon == 2 or self.__dungeon == 3:
-            return round(random.uniform(20 * (self.get_dungeon() - 0.7), 30 * (self.get_dungeon() - 0.7)))
+        if self.__dungeon == 2:
+            return round(random.uniform(20 * (self.get_dungeon() - 0.6), 30 * (self.get_dungeon() - 0.6)))
+        elif self.__dungeon == 3:
+            return round(random.uniform(20 * (self.get_dungeon() - 1), 30 * (self.get_dungeon() - 1)))
         else:
             return random.randint(20 , 30)
 
@@ -60,5 +65,5 @@ class Enemy:
         self.__health = health
     
     def __str__(self):
-        return f"{self.__name}\nSalud: {self.__health}\nFuerza: {self.__strength}\nDefensa: {self.__defense}"
+        return f"{self.__name}\nSalud: {self.__health}❤️\nFuerza: {self.__strength}⚔️\nDefensa: {self.__defense}🛡️"
 

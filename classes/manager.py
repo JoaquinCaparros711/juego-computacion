@@ -3,7 +3,11 @@ from classes.item import Item
 from constants import *
 from colorama import Fore, Style, init
 from classes.saveAndLoad import SaveAndLoad
+from classes.animations import Animations
 
+
+
+animation = Animations()
 
 init()
 pygame.init()
@@ -20,8 +24,8 @@ list_items = [
     Item("Cangrejos🦀", "Disminuye 15 puntos de vida", "Salud", -15, "eat"),
     Item("Coca-Cola🥤", "Aumenta la fuerza en 5 puntos", "Fuerza", 5, "drink"),
     Item("Rockstar⚗️", "Disminuye la fuerza en 7 puntos", "Fuerza", -7, "drink"),
-    Item("Zapatillas Nike👟", "Aumenta la fuerza en 5 puntos", "Fuerza", 5, "eat"),
-    Item("Cadena de Oro🪙", "Aumenta la fuerza en 10 puntos", "Fuerza", 10, "eat"),
+    Item("Zapatillas Nike👟", "Aumenta la fuerza en 5 puntos", "Fuerza", 5, "clothe"),
+    Item("Cadena de Oro🪙", "Aumenta la fuerza en 10 puntos", "Fuerza", 10, "clothe"),
     Item("Disfraz de Batman🦇", "Aumenta la defensa en 15 puntos", "Defensa", 15, "clothe"),
     Item("Chaleco de kevlar🦺", "Aumenta la defensa en 12 puntos", "Defensa", 12, "clothe"),
     Item("Campera Gucci🧥", "Aumenta la defensa en 10 puntos", "Defensa", 10, "clothe"),
@@ -31,39 +35,7 @@ list_items = [
 class Manager:
 
     def clear_console(self):
-        os.system('cls' if os.name == 'nt' else 'clear')
-
-    # def show_dungeon_map(self, dungeon, enemies):
-    #     """Muestra un mapa detallado de la mazmorra con la ubicación de los enemigos."""
-    #     dungeon_size = 5  # Tamaño del mapa de la mazmora (5x5)
-    #     map_grid = [['🟩' for _ in range(dungeon_size)] for _ in range(dungeon_size)]
-
-    #     # Colocar al jugador en la posición inicial (0,0)
-    #     map_grid[0][0] = '👤'
-
-    #     # Colocar a los enemigos en posiciones aleatorias dentro del mapa
-    #     enemy_positions = []
-    #        for enemy in enemies:
-    #            while True:
-    #                enemy_position = (random.randint(1, dungeon_size - 1), random.randint(1, dungeon_size - 1))
-    #                if enemy_position not in enemy_positions and map_grid[enemy_position[0]][enemy_position[1]] == '🟩':
-    #                    enemy_positions.append(enemy_position)
-    #                    map_grid[enemy_position[0]][enemy_position[1]] = '👾'  # Símbolo para representar a un enemigo
-    #                    break
-
-    #     # Mostrar el mapa en la consola
-    #     print(f"\n📜 Mapa de la Mazmora {dungeon.get_level()}:")
-    #     for row in map_grid:
-    #         print(" ".join(row))
-        
-    #     # Mostrar información adicional sobre los enemigos
-    #     print("\n🧚‍♂️ Enemigos en la mazmora:")
-    #     for idx, enemy in enumerate(enemies):
-    #         enemy_position = enemy_positions[idx]
-    #         print(f"👾 {enemy.get_name()} está en la posición {enemy_position}.")
-
-    #     print("\nLeyenda: 👤 = Jugador, 👾 = Enemigo, 🟩 = Espacio libre")
-        
+        os.system('cls' if os.name == 'nt' else 'clear')  
 
     def handle_dungeon_progression(self, character, dungeon, enemies): #Lógica para manejar la transición y progreso en la mazmorra.
         if not enemies:
@@ -87,26 +59,16 @@ class Manager:
             dungeon.set_level(dungeon.get_level() + 1)
 
             enemies.extend(dungeon.dungeonGenerator())
-    
-    def animations(self, string): #! sacar
-        for char in string:
-            print(char, end='', flush=True)
-            time.sleep(0.02)
-        print()
         
     def welcome(self, character):
         print(NAME_OF_GAME)
         time.sleep(1) 
         nameOfCharacter = input(ENTRY_NAME)
         print(f"\n¡Hola {nameOfCharacter}!")
-        #time.sleep(3)
-        self.animations(WELCOME)
-        # print(WELCOME)
-        # time.sleep(2)
+        animation.animations(WELCOME)
             
         while True:
-            #print(POINTS)
-            self.animations(POINTS)
+            animation.animations(POINTS)
             time.sleep(3)
                     
             try:
@@ -121,7 +83,6 @@ class Manager:
             remaining_points = STARTING_POINTS - health
             print(f"\nTe quedan {remaining_points} puntos.\n")
 
-            # Bucle para solicitar puntos de fuerza
             while True:
                 try:
                     strength = float(input(ENTRY_STRENGTH))
@@ -136,7 +97,6 @@ class Manager:
             remaining_points -= strength
             defense = remaining_points
 
-            # Creación del personaje
             character.set_name(nameOfCharacter)
             character.set_health(health)
             character.set_strength(strength)
@@ -256,20 +216,16 @@ class Manager:
 
                             if (first_turn == "character"):
 
-                                self.animations(f"🆚 Tu oponente es: *{current_enemy.get_name()}*")
-                                #print(f"🆚 Tu oponente es: *{current_enemy.get_name()}*")
+                                animation.animations(f"🆚 Tu oponente es: *{current_enemy.get_name()}*")
                                 time.sleep(1)
-                                self.animations(f"Es tu turno de atacar, super ataque {status_super_attack}, {character.get_name()}!⚔️")
-                                #print(f"Es tu turno de atacar, super ataque {status_super_attack}, {character.get_name()}!⚔️")
+                                animation.animations(f"Es tu turno de atacar, super ataque {status_super_attack}, {character.get_name()}!⚔️")
                                 time.sleep(1)
 
                                 character.choose_super_atack(character, current_enemy)
 
-                                self.animations(f"💥 ¡Has golpeado a {current_enemy.get_name()}!")
-                                #print(f"💥 ¡Has golpeado a {current_enemy.get_name()}!")
+                                animation.animations(f"💥 ¡Has golpeado a {current_enemy.get_name()}!")
                                 time.sleep(1)
-                                self.animations(f"La vida actual de {current_enemy.get_name()} es: {current_enemy.get_health()} ❤️")
-                                #print(f"La vida actual de {current_enemy.get_name()} es: {current_enemy.get_health()}❤️")
+                                animation.animations(f"La vida actual de {current_enemy.get_name()} es: {current_enemy.get_health()} ❤️")
                                 time.sleep(1)  
                                                                 
                                 if current_enemy.get_health() <= 0:
@@ -279,24 +235,19 @@ class Manager:
                                         item.handle_item_drop(character, item, list_items, list_items_saved)
                                         self.handle_dungeon_progression(character, dungeon, enemies)
                                         break
-                                self.animations(f"Es turno de, {current_enemy.get_name()} de contraatacar!⚔️")
-                                #print(f"Es turno de, {current_enemy.get_name()} de contraatacar!⚔️")
+                                animation.animations(f"Es turno de, {current_enemy.get_name()} de contraatacar!⚔️")
                                 time.sleep(1)
                                 current_enemy.attack(character)
-                                self.animations(f"💔 ¡Cuidado! Tu vida ha quedado en: *{character.get_health()}*")
-                                #print(f"💔 ¡Cuidado! Tu vida ha quedado en: *{character.get_health()}*")
+                                animation.animations(f"💔 ¡Cuidado! Tu vida ha quedado en: *{character.get_health()}*")
                                 time.sleep(1)
 
                             if (first_turn == "enemy"):
-                                self.animations(f"🆚 Tu oponente es: *{current_enemy.get_name()}*")
-                                #print(f"🆚 Tu oponente es: *{current_enemy.get_name()}*")
+                                animation.animations(f"🆚 Tu oponente es: *{current_enemy.get_name()}*")
                                 time.sleep(1)
-                                self.animations(f"Empieza atacando, {current_enemy.get_name()}!⚔️")
-                                #print(f"Empieza atacando, {current_enemy.get_name()}!⚔️")
+                                animation.animations(f"Empieza atacando, {current_enemy.get_name()}!⚔️")
                                 time.sleep(1)
                                 current_enemy.attack(character)
-                                self.animations(f"💔 ¡Cuidado! Tu vida ha quedado en: *{character.get_health()}*")
-                                #print(f"💔 ¡Cuidado! Tu vida ha quedado en: *{character.get_health()}*")
+                                animation.animations(f"💔 ¡Cuidado! Tu vida ha quedado en: *{character.get_health()}*")
                                 time.sleep(1)
 
                                 if character.get_health() == 0:
@@ -304,15 +255,12 @@ class Manager:
                                     sound_game_over.play()
                                     break           
                                 
-                                self.animations(f"Ahora es tu turno de atacar, super ataque {status_super_attack}, {character.get_name()}!⚔️")
-                                #print(f"Ahora es tu turno de atacar, super ataque {status_super_attack}, {character.get_name()}!⚔️")
+                                animation.animations(f"Ahora es tu turno de atacar, super ataque {status_super_attack}, {character.get_name()}!⚔️")
                                 time.sleep(1)
                                 character.choose_super_atack(character, current_enemy)
-                                self.animations(f"💥 ¡Has golpeado a {current_enemy.get_name()}!")
-                                #print(f"💥 ¡Has golpeado a {current_enemy.get_name()}!")
+                                animation.animations(f"💥 ¡Has golpeado a {current_enemy.get_name()}!")
                                 time.sleep(1)
-                                self.animations(f"La vida actual de {current_enemy.get_name()} es: {current_enemy.get_health()}❤️")
-                                #print(f"La vida actual de {current_enemy.get_name()} es: {current_enemy.get_health()}❤️")
+                                animation.animations(f"La vida actual de {current_enemy.get_name()} es: {current_enemy.get_health()}❤️")
                                 time.sleep(1)  
                                                                 
                                 if current_enemy.get_health() <= 0:
@@ -345,7 +293,6 @@ class Manager:
                 elif playOption == "6":  
                     self.clear_console()
                     break
-                    # self.show_dungeon_map(dungeon, enemies)
                 else:
                     print(INVALID_OPTION_MENU)
                     time.sleep(1)

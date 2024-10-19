@@ -1,6 +1,9 @@
-import time
+from constants import *
+from classes.animations import Animations
 
 
+
+animation = Animations()
 
 class Character:
 
@@ -21,28 +24,22 @@ class Character:
         other.set_health(round(new_health))
         return damage
     
-    def super_attack(self, other): #!juntar en una funcion
-        damage = max(self.__strength*1.5 - other.get_defense() / 2.5, 0)
+    def super_attack(self, other):
+        damage = max(self.__strength*1.4 - other.get_defense() / 2.5, 0)
         new_health = other.get_health() - damage
         if new_health < 0:
             new_health = 0  # Si la salud es negativa, se establece en 0
         other.set_health(round(new_health))
         return damage
     
-    def animations(self, string): #! Sacar de aca, y crear clase animaciones
-        for char in string:
-            print(char, end='', flush=True)
-            time.sleep(0.02)
-        print()
-    
-    def choose_super_atack(self, character, current_enemy): #! bool 
+    def choose_super_atack(self, character, current_enemy):
         while True:
             if character.get_super_attack() == False:
-                self.animations(f"{character.get_name()} no tiene disponible el super ataque hasta subir de nivel (atacás normal)⚔️")
+                animation.animations(f"{character.get_name()} no tiene disponible el super ataque hasta subir de nivel (atacás normal)⚔️")
                 character.attack(current_enemy)
                 break
             try:
-                self.animations(f"{character.get_name()} quieres usar tu super ataque(SI:1 NO:2): ")
+                animation.animations(f"{character.get_name()} quieres usar tu super ataque(SI:1 NO:2): ")
                 select_super_attack = input()
                 if select_super_attack == "1":
                         character.super_attack(current_enemy)
@@ -56,10 +53,10 @@ class Character:
                 break
 
     def level_up(self):
-        self.__level += 1 #! Constantes
-        self.__health += 25
-        self.__strength += 15
-        self.__defense += 15
+        self.__level += 1
+        self.__health += LEVEL_UP_HEALTH
+        self.__strength += LEVEL_UP_STRENGTH
+        self.__defense += LEVEL_UP_DEFENSE
         self.__super_attack = True
     
     def get_name(self):
