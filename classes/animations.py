@@ -4,7 +4,7 @@ import time
 class Animations:
 
 
-    #! Funcion para animar prints
+    #! Anima los prints
     def animations(self, string):
         for char in string:
             print(char, end='', flush=True)

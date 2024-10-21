@@ -52,7 +52,7 @@ class Item:
     def get_edible(self):
         return self.__edible
     
-    # Función para dropear un ítem al azar
+    # Dropea un ítem al azar
     def drop_random_item(self, items_list):
         if not items_list:
             return "No hay ítems para dropear."

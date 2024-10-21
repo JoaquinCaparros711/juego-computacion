@@ -11,7 +11,7 @@ class EnemyBoss:
         self.__strength = self.__generate_strength()
         self.__defense = self.__generate_defense()
     
-    #! Función para atacar
+    #! Ataque
     def attack(self, other):
         damage = max(self.__strength - other.get_defense() / 4, 0)
         new_health = other.get_health() - damage

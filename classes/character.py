@@ -35,7 +35,7 @@ class Character:
         other.set_health(round(new_health))
         return damage
     
-    #! Función que permite al jugador elegir si desea usar el super ataque o no.
+    #! Permite al jugador elegir si desea usar el super ataque o no.
     def choose_super_atack(self, character, current_enemy):
         while True:
             if character.get_super_attack() == False:
