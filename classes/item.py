@@ -1,19 +1,28 @@
 from classes.character import *
-import random, time, pygame
+import random, time, pygame, os
 from constants import *
 from classes.animations import Animations
 
 
-
+# Inicialización de animaciones y pygame
 animation = Animations()
-
 pygame.init()
+
+# Se definieron los sonidos del juego
 eating = pygame.mixer.Sound("sounds/eating.wav")
 drinking = pygame.mixer.Sound("sounds/drinking.wav")
 clothe = pygame.mixer.Sound("sounds/clothe.wav")
 
 
 class Item:
+    """
+    Atributos:
+        __name (str): El nombre del ítem.
+        __effect (str): El efecto del ítem cuando es usado.
+        __type (str): El tipo del ítem (e.g., Salud, Fuerza, Defensa).
+        __value (int): El valor numérico del efecto del ítem.
+        __edible (str): Indica si el ítem es comestible, bebible o es indumentaria.
+    """
     def __init__(self, name = "", effect = "", type = "", value = 0, edible = ""):
         self.__name = name
         self.__effect = effect
@@ -23,7 +32,11 @@ class Item:
 
     def __str__(self):
         return f"{self.__name}:\n{self.__effect}"
+    
+    def clear_console(self):
+        os.system('cls' if os.name == 'nt' else 'clear')  
 
+    # Métodos getters para obtener los atributos del ítem
     def get_name(self):
         return self.__name
 
@@ -48,6 +61,7 @@ class Item:
         
         return dropped_item
     
+    # Permite al usuario usar un item y aplciar sus efectos
     def use_item(self, list_items_saved, character):
 
         # Mostrar inventario
@@ -65,11 +79,11 @@ class Item:
                 item_choice = int(input()) - 1  
 
                 if item_choice + 1 == 9:
+                    self.clear_console()
                     break
 
                 if 0 <= item_choice < len(list_items_saved):
 
-                    #! verificar error fuera de index
                     selected_item = list_items_saved[item_choice]
                     
                     if selected_item.get_edible() == "eat":
@@ -79,7 +93,7 @@ class Item:
                     else:
                         clothe.play()
 
-                    # Aplicar los efectos del item al personaje
+                    # Aplica los efectos del item al personaje
                     if selected_item.get_type() == "Salud":
                         character.set_health(character.get_health() + selected_item.get_value())
                         print(f"El item que has consumido. {selected_item.get_effect()}")
@@ -92,7 +106,7 @@ class Item:
                         character.set_defense(character.get_defense() + selected_item.get_value())
                         print(f"El item que has consumido. {selected_item.get_effect()}")
                         print(f"🛡️ Defensa actual: {character.get_defense()}")
-                    # Eliminar el item del inventario tras usarlo
+                    # Elimina el item del inventario tras usarlo
                     list_items_saved.pop(item_choice)
                     break
                 else:
@@ -100,6 +114,7 @@ class Item:
             except ValueError:
                 print("Por favor ingresa un número válido.\n")
     
+    # Maneja la lógica para añadir un ítem al inventario del personaje tras derrotar a un enemigo.
     def handle_item_drop(self, character, item, list_items, list_items_saved): #Lógica para manejar la recolección del item tras derrotar a un enemigo.
         if len(list_items_saved) > 5:
             print(f"{character.get_name()} no se ha podido añadir al inventario el item.\nDebes usar alguno de tu inventario para poder seguir guardando items!\nTienes un máximo de 6 items.")

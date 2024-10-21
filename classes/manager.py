@@ -1,7 +1,7 @@
 import os, time, random, pygame
 from classes.item import Item
 from constants import *
-from colorama import Fore, Style, init
+from colorama import Fore, init
 from classes.saveAndLoad import SaveAndLoad
 from classes.animations import Animations
 
@@ -9,13 +9,20 @@ from classes.animations import Animations
 
 animation = Animations()
 
+# Inicialización de colorama y pygame para sonidos
 init()
 pygame.init()
+
+# Cargar efectos de sonido
 chest = pygame.mixer.Sound("sounds/chest.wav")
 sound_win = pygame.mixer.Sound("sounds/win.wav")
 sound_game_over = pygame.mixer.Sound("sounds/gameOver.wav")
+
+# Inicialización de la clase SaveAndLoad para manejar guardado y carga de juegos
 saveAndLoad = SaveAndLoad()
 
+
+# Lista de objetos disponibles en el juego
 list_items = [
     Item("Hamburguesa🍔", "Restaura 50 puntos de vida", "Salud", 50, "eat"),
     Item("Papas Fritas🍟", "Restaura 40 puntos de vida", "Salud", 40, "eat"),
@@ -34,9 +41,11 @@ list_items = [
 
 class Manager:
 
+    # Limpiar la consola según el sistema operativo
     def clear_console(self):
         os.system('cls' if os.name == 'nt' else 'clear')  
 
+     # Lógica para manejar la transición y progreso en la mazmorra
     def handle_dungeon_progression(self, character, dungeon, enemies): #Lógica para manejar la transición y progreso en la mazmorra.
         if not enemies:
             self.clear_console()
@@ -56,17 +65,19 @@ class Manager:
             print(AFTER_STATICSTIC)
             print(character)
 
+            # Sube el nivel de la mazmorra y genera enemigos
             dungeon.set_level(dungeon.get_level() + 1)
-
             enemies.extend(dungeon.dungeonGenerator())
-        
+    
+    # Mensaje de bienvenida y asignación de puntos
     def welcome(self, character):
         print(NAME_OF_GAME)
         time.sleep(1) 
         nameOfCharacter = input(ENTRY_NAME)
         print(f"\n¡Hola {nameOfCharacter}!")
         animation.animations(WELCOME)
-            
+        
+        # Asignación de puntos de vida, fuerza y defensa
         while True:
             animation.animations(POINTS)
             time.sleep(3)
@@ -96,17 +107,29 @@ class Manager:
                     
             remaining_points -= strength
             defense = remaining_points
-
+            
+            # Asignación de los valores al personaje
             character.set_name(nameOfCharacter)
             character.set_health(health)
             character.set_strength(strength)
             character.set_defense(defense)
+            
+            # Mostrar estadísticas del personaje
+            time.sleep(1)
+            print(f"\nEn vida tienes {character.get_health()} puntos❤️\n")
+            time.sleep(1)
+            print(f"En daño tienes {character.get_strength()} puntos⚔️\n")
+            time.sleep(1)
+            print(f"Y en defensa tienes {character.get_defense()} puntos🛡️\n")
+            time.sleep(1)
 
             print(CREATED_CHARACTER)
             time.sleep(3)
             self.clear_console()
             break
+        
 
+        # Selección del animal
         print(ENTRY_ANIMAL)
         time.sleep(2)
         print(ANIMAL_MENU)
@@ -159,6 +182,7 @@ class Manager:
                     self.clear_console()
                     break
             else:
+                self.clear_console()
                 print(INVALID_OPTION_MENU)
                 time.sleep(1)
     
@@ -171,7 +195,7 @@ class Manager:
             save_option = input(ENTRY_SAVE)
             if save_option == "1":
                 self.clear_console()
-                character, enemies, dungeon, list_items_saved = saveAndLoad.load_game()
+                character, enemies, dungeon, list_items_saved = saveAndLoad.load_game() #Carga la partida
                 if character is None:
                     print(COULD_NOT_BE_LOADED)
                 else:
@@ -184,6 +208,7 @@ class Manager:
                 self.clear_console()
                 break
             else:
+                self.clear_console()
                 print(INVALID_OPTION_MENU_SAVE)
     
 
@@ -260,7 +285,7 @@ class Manager:
                                 character.choose_super_atack(character, current_enemy)
                                 animation.animations(f"💥 ¡Has golpeado a {current_enemy.get_name()}!")
                                 time.sleep(1)
-                                animation.animations(f"La vida actual de {current_enemy.get_name()} es: {current_enemy.get_health()}❤️")
+                                animation.animations(f"La vida actual de {current_enemy.get_name()} es: {current_enemy.get_health()} ❤️")
                                 time.sleep(1)  
                                                                 
                                 if current_enemy.get_health() <= 0:
@@ -279,20 +304,24 @@ class Manager:
                 elif playOption == "4": 
                     chest.play()
                     self.clear_console()
-                    items_options = input(ITEMS_MENU)
-                    if items_options == "1":
-                        self.clear_console()
-                        item.use_item(list_items_saved, character)
-                    elif items_options == "2":
-                        break
-                    else:
-                        print(INVALID_OPTION_ITEMS_MENU)
+                    while True:
+                        items_options = input(ITEMS_MENU)
+                        if items_options == "1":
+                            self.clear_console()
+                            item.use_item(list_items_saved, character)
+                        elif items_options == "2":
+                            self.clear_console()
+                            break
+                        else:
+                            self.clear_console()
+                            print(INVALID_OPTION_ITEMS_MENU)
                 elif playOption == "5": 
                     self.clear_console()
                     saveAndLoad.save_game(character, enemies, dungeon, list_items_saved)
                 elif playOption == "6":  
                     self.clear_console()
                     break
-                else:
-                    print(INVALID_OPTION_MENU)
-                    time.sleep(1)
+            else:
+                self.clear_console()
+                print(INVALID_OPTION_MENU)
+                time.sleep(1)

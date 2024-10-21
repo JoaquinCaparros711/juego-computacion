@@ -7,15 +7,17 @@ animation = Animations()
 
 class Character:
 
+    #! Inicializa personaje
     def __init__(self, name = "", health = 0, strength = 0, defense = 0, level = 1, super_attack = True):
         self.__name = name
         self.__health = health
         self.__strength = strength
         self.__defense = defense
         self.__level = level
-        self.__super_attack = super_attack
+        self.__super_attack = super_attack #!Indica si tiene disponible el super ataque
         
     
+    #! Realiza un ataque normal contra otro personaje y reduce su salud.
     def attack(self, other):
         damage = max(self.__strength - other.get_defense() / 2.5, 0)
         new_health = other.get_health() - damage
@@ -24,6 +26,7 @@ class Character:
         other.set_health(round(new_health))
         return damage
     
+    #! Realiza un super ataque contra otro personaje y reduce su salud.
     def super_attack(self, other):
         damage = max(self.__strength*1.4 - other.get_defense() / 2.5, 0)
         new_health = other.get_health() - damage
@@ -32,6 +35,7 @@ class Character:
         other.set_health(round(new_health))
         return damage
     
+    #! Función que permite al jugador elegir si desea usar el super ataque o no.
     def choose_super_atack(self, character, current_enemy):
         while True:
             if character.get_super_attack() == False:
@@ -53,12 +57,14 @@ class Character:
                 break
 
     def level_up(self):
+        #! Incrementa el nivel del personaje y mejora sus estadísticas.
         self.__level += 1
         self.__health += LEVEL_UP_HEALTH
         self.__strength += LEVEL_UP_STRENGTH
         self.__defense += LEVEL_UP_DEFENSE
         self.__super_attack = True
     
+    #* Métodos getters y setters para los atributos del personaje
     def get_name(self):
         return self.__name
     

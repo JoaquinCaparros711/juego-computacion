@@ -3,7 +3,7 @@ import random
 
 class EnemyBoss:
     
-        #!Ver como subirle caracteristicas dependiendo dungeon
+    #! Inicializador de jefes enemigos.
     def __init__(self, name, dungeon):
         self.__name = name
         self.__dungeon = dungeon
@@ -11,6 +11,7 @@ class EnemyBoss:
         self.__strength = self.__generate_strength()
         self.__defense = self.__generate_defense()
     
+    #! Función para atacar
     def attack(self, other):
         damage = max(self.__strength - other.get_defense() / 4, 0)
         new_health = other.get_health() - damage
@@ -19,6 +20,7 @@ class EnemyBoss:
         other.set_health(round(new_health))
         return damage
 
+    #! Genera la vida del enemigo en base a la dungeon en la que está.
     def __generate_health(self):
         if self.__dungeon == 2:
             return round(random.uniform(140 * (self.get_dungeon() - 0.6), 190 * (self.get_dungeon() - 0.6)))
@@ -27,6 +29,7 @@ class EnemyBoss:
         else:
             return random.randint(140 , 190)
 
+    #! Genera la fuerza del enemigo en base a la dungeon en la que está.
     def __generate_strength(self):
         if self.__dungeon == 2:
             return round(random.uniform(37 * (self.get_dungeon() - 0.6), 47 * (self.get_dungeon() - 0.6)))
@@ -35,6 +38,7 @@ class EnemyBoss:
         else:
             return random.randint(37 , 47)
 
+    #! Genera la defensa del enemigo en base a la dungeon en la que está.
     def __generate_defense(self):
         if self.__dungeon == 2:
             return round(random.uniform(30 * (self.get_dungeon() - 0.6), 40 * (self.get_dungeon() - 0.6)))
@@ -43,6 +47,7 @@ class EnemyBoss:
         else:
             return random.randint(30 , 40)
 
+    #* Métodos getters y setters para los atributos del personaje
     def get_name(self):
         return self.__name
     

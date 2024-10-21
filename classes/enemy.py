@@ -4,6 +4,7 @@ import random
 
 class Enemy:
 
+    #! Inicializador de enemigos.
     def __init__(self, name, dungeon):
         self.__name = name
         self.__dungeon = dungeon
@@ -19,6 +20,7 @@ class Enemy:
         other.set_health(round(new_health))
         return damage
 
+    #! Genera la vida del enemigo en base a la dungeon en la que está.
     def __generate_health(self):
         if self.__dungeon == 2:
             return round(random.uniform(130 * (self.get_dungeon() - 0.6), 180 * (self.get_dungeon() - 0.6)))
@@ -27,6 +29,7 @@ class Enemy:
         else:
             return random.randint(130 , 180)
 
+    #! Genera la fuerza del enemigo en base a la dungeon en la que está.
     def __generate_strength(self):
         if self.__dungeon == 2:
             return round(random.uniform(30 * (self.get_dungeon() - 0.6), 40 * (self.get_dungeon() - 0.6)))
@@ -35,6 +38,7 @@ class Enemy:
         else:
             return random.randint(30 , 40)
 
+    #! Genera la defensa del enemigo en base a la dungeon en la que está.
     def __generate_defense(self):
         if self.__dungeon == 2:
             return round(random.uniform(20 * (self.get_dungeon() - 0.6), 30 * (self.get_dungeon() - 0.6)))
@@ -43,6 +47,7 @@ class Enemy:
         else:
             return random.randint(20 , 30)
 
+    #* Métodos getters y setters para los atributos del personaje
     def get_name(self):
         return self.__name
     

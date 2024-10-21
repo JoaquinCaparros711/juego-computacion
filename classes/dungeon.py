@@ -14,7 +14,7 @@ class Dungeon:
     def set_level(self, level):
         self.__level = level
 
-    def dungeonGenerator(self):#! En base a la dungeon, 1,2, o 3 generar los bichos con sus respectivos puntos
+    def dungeonGenerator(self):#! En base a la dungeon, 1,2, o 3 genera los enemigo.
 
         levelDungeon = self.get_level()
         if levelDungeon == 1:
@@ -27,10 +27,10 @@ class Dungeon:
             nameOfEnemies = ["Tigre de bengala", "Hipopotamo", "León", "Elefante", "Gorila"]
             nameOfEnemyBoss = "Oso Grizzly"
 
-        # Selecciona enemigos únicos sin repeticiones
+        #* Selecciona enemigos únicos sin repeticiones
         selected_enemies = random.sample(nameOfEnemies, 3)
 
-        # Crea la lista de enemigos
+        #* Crea la lista de enemigos
         enemies = [Enemy(name, levelDungeon) for name in selected_enemies]
         enemies.append(EnemyBoss(nameOfEnemyBoss, levelDungeon))
 
